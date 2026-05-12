@@ -1,35 +1,41 @@
-<section class="w-full max-w-sm" hlmCard>
-  <div hlmCardHeader>
-    <h3 hlmCardTitle>Login to your account</h3>
-    <p hlmCardDescription>Enter your email below to login to your account</p>
-
-    <div hlmCardAction>
-      <button hlmBtn variant="link">Sign Up</button>
+<div class="min-w-dvw min-h-dvh flex border items-center justify-center">
+  <hlm-toaster />
+  <section class="w-full max-w-sm" hlmCard>
+    <div hlmCardHeader>
+      <h3 hlmCardTitle>Fazer login na PISTA</h3>
+      <p hlmCardDescription>Preencha os campos para fazer login na PISTA.</p>
     </div>
-  </div>
 
-  <div hlmCardContent>
-    <form [formGroup]="form" id="login" (ngSubmit)="onSubmit()">
-      <div class="flex flex-col gap-6">
-        <div class="grid gap-2">
-          <label hlmLabel for="email">Email</label>
-          <input type="email" id="email" placeholder="m@example.com" formControlName="email" required hlmInput />
-        </div>
-
-        <div class="grid gap-2">
-          <div class="flex items-center">
-            <label hlmLabel for="password">Password</label>
-            <a href="#" class="ml-auto inline-block text-sm underline-offset-4 hover:underline">
-              Forgot your password?
-            </a>
+    <div hlmCardContent>
+      <form [formGroup]="form" id="login" (ngSubmit)="onSubmit()">
+        <div class="flex flex-col gap-6">
+          <div class="grid gap-2">
+            <label hlmLabel for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              placeholder="m@example.com"
+              formControlName="email"
+              required
+              hlmInput
+            />
           </div>
-          <input type="password" id="password" hlmInput formControlName="password" />
-        </div>
-      </div>
-    </form>
-  </div>
 
-  <div hlmCardFooter class="flex-col gap-2">
-    <button hlmBtn type="submit" form="login" class="w-full">Login</button>
-  </div>
-</section>
+          <div class="grid gap-2">
+            <div class="flex items-center">
+              <label hlmLabel for="password">Password</label>
+              <a href="#" class="ml-auto inline-block text-sm underline-offset-4 hover:underline">
+                Esqueceu sua senha?
+              </a>
+            </div>
+            <input type="password" id="password" hlmInput formControlName="password" />
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div hlmCardFooter class="flex-col gap-2">
+      <button hlmBtn type="submit" form="login" class="w-full">Entrar agora</button>
+    </div>
+  </section>
+</div>
