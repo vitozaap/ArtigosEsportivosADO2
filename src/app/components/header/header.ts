@@ -8,6 +8,7 @@ import { HlmAvatarImports } from "@spartan-ng/helm/avatar"
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmIcon } from '@spartan-ng/helm/icon'
 import { lucideLogOut } from '@ng-icons/lucide';
+import { AuthService } from '../../core/services/auth/auth.service';
 interface HeaderItem {
   label: string
   path: string
@@ -23,11 +24,12 @@ interface HeaderItem {
 })
 export class Header {
 
-  private readonly userService = inject(UserService)
+  protected readonly userService = inject(UserService)
+  protected readonly authService = inject(AuthService)
   readonly logoName = "PISTA"
   readonly logoClass = hlmH4
 
-  readonly isAdmin = this.userService.isAdmin()
+  readonly isAdmin = this.authService.isAdmin()
   readonly name = this.isAdmin ? "Admin" : "Usuário"
   readonly logoIcon = this.name.charAt(0)
   readonly adminHeaderItems: HeaderItem[] = [{

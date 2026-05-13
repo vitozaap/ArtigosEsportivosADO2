@@ -3,7 +3,9 @@
     <h1 [class]="logoClass">{{ logoName }}</h1>
     <div class="flex gap-2">
       @for (item of adminHeaderItems; track item) {
-        <button hlmBtn variant="ghost" class="cursor-pointer">{{ item.label }}</button>
+        <button hlmBtn variant="ghost" class="cursor-pointer" [routerLink]="item.path">
+          {{ item.label }}
+        </button>
       }
     </div>
   </div>
@@ -16,7 +18,14 @@
       </hlm-avatar>
       <p class="text-sm font-semibold">{{ name }}</p>
     </div>
-    <button hlmBtn size="icon-sm" variant="ghost" class="cursor-pointer">
+    <button
+      hlmBtn
+      size="icon-sm"
+      variant="ghost"
+      class="cursor-pointer"
+      routerLink="/login"
+      (click)="userService.deleteUser()"
+    >
       <ng-icon hlm size="sm" name="lucideLogOut" />
     </button>
   </div>

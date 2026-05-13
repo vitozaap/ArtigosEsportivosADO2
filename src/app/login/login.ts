@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { toast } from '@spartan-ng/brain/sonner';
@@ -8,6 +8,8 @@ import { HlmInputImports } from "@spartan-ng/helm/input"
 import { HlmLabelImports } from '@spartan-ng/helm/label';
 import { HlmToasterImports } from '@spartan-ng/helm/sonner';
 import { UserService } from '../core/services/user/user.service';
+import { admin, user } from '../core/users';
+import { AuthService } from '../core/services/auth/auth.service';
 @Component({
   selector: 'app-login',
   imports: [HlmButtonImports, HlmCardImports, HlmInputImports, HlmLabelImports, RouterModule, ReactiveFormsModule, HlmToasterImports],
@@ -15,10 +17,13 @@ import { UserService } from '../core/services/user/user.service';
   templateUrl: './login.html',
 })
 export class Login {
-  constructor(private router: Router, private userService: UserService) { }
-  private admin = {
-    email: "example@admin.com",
-    password: "admin"
+  private userService = inject(UserService)
+  private readonly router = inject(Router)
+  private readonly authService = inject(AuthService)
+  constructor() {
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(["/shop"])
+    }
   }
 
   form = new FormGroup({
@@ -28,21 +33,30 @@ export class Login {
 
   onSubmit() {
     if (this.form.valid) {
-      this.userService.changeUser({ email: this.form.value.email!, password: this.form.value.password! })
-      if (this.form.value.email == this.admin.email && this.form.value.password == this.admin.password) {
+
+
+      if (this.form.value.email == admin.email && this.form.value.password == admin.password) {
+        this.userService.changeUser({ email: this.form.value.email!, password: this.form.value.password! })
         toast.success("Logado como admin!", {
           description: `Usuário salvo: 
           ${JSON.stringify(this.userService.getUser())}`
         })
         setTimeout(() => this.router.navigate(["/shop"]), 1000)
-
+      }
+      else if (this.form.value.email == user.email && this.form.value.password == user.password) {
+        this.userService.changeUser({ email: this.form.value.email!, password: this.form.value.password! })
+        toast.success("Logado como usuário!", {
+          description: `Usuário salvo: 
+          ${JSON.stringify(this.userService.getUser())}`
+        })
+        setTimeout(() => this.router.navigate(["/shop"]), 1000)
       }
       else {
         toast.info("Usuário não encontrado")
       }
     }
     else {
-      toast.error("Form is invalid", { description: JSON.stringify(this.form.errors) })
+      toast.error("Form is invalid", { description: JSON.stringify(this.form.invalid) })
     }
   }
 }
