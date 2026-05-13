@@ -4,6 +4,7 @@ type Category = ["Futebol", "Basquete", "Corrida", "Tênis"]
 
 export interface Product {
     name: string
+    userId: number
     SKU: string
     brand: string
     category: Category
