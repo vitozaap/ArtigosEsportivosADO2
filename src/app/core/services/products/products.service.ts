@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { apiUrl } from "../api";
+import { apiUrl } from "../../api";
 import { Product } from "./types";
 import { Observable } from "rxjs";
 

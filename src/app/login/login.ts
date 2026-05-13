@@ -7,6 +7,7 @@ import { HlmCardImports } from "@spartan-ng/helm/card"
 import { HlmInputImports } from "@spartan-ng/helm/input"
 import { HlmLabelImports } from '@spartan-ng/helm/label';
 import { HlmToasterImports } from '@spartan-ng/helm/sonner';
+import { UserService } from '../core/services/user/user.service';
 @Component({
   selector: 'app-login',
   imports: [HlmButtonImports, HlmCardImports, HlmInputImports, HlmLabelImports, RouterModule, ReactiveFormsModule, HlmToasterImports],
@@ -14,7 +15,7 @@ import { HlmToasterImports } from '@spartan-ng/helm/sonner';
   templateUrl: './login.html',
 })
 export class Login {
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userService: UserService) { }
   private admin = {
     email: "example@admin.com",
     password: "admin"
@@ -26,12 +27,14 @@ export class Login {
   })
 
   onSubmit() {
-    console.log(this.form.value)
     if (this.form.valid) {
+      this.userService.changeUser({ email: this.form.value.email!, password: this.form.value.password! })
       if (this.form.value.email == this.admin.email && this.form.value.password == this.admin.password) {
         toast.success("Logado como admin!", {
-          description: `data: ${JSON.stringify(this.form.value)}`
+          description: `Usuário salvo: 
+          ${JSON.stringify(this.userService.getUser())}`
         })
+        setTimeout(() => this.router.navigate(["/shop"]), 1000)
 
       }
       else {
