@@ -7,8 +7,9 @@ import { User } from '../../core/services/user/types';
 import { HlmAvatarImports } from "@spartan-ng/helm/avatar"
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmIcon } from '@spartan-ng/helm/icon'
-import { lucideLogOut } from '@ng-icons/lucide';
+import { lucideLogOut, lucideMoon, lucideSun } from '@ng-icons/lucide';
 import { AuthService } from '../../core/services/auth/auth.service';
+import { ThemeService } from '../../core/services/theme/theme.service';
 interface HeaderItem {
   label: string
   path: string
@@ -18,7 +19,7 @@ interface HeaderItem {
 @Component({
   selector: 'app-header',
   imports: [HlmButtonImports, RouterLink, HlmAvatarImports, NgIcon, HlmIcon],
-  providers: [provideIcons({ lucideLogOut })],
+  providers: [provideIcons({ lucideLogOut, lucideMoon, lucideSun })],
   templateUrl: './header.html',
   template: `<h1 class="${hlmH1}">The Joke Tax Chronicles</h1>`
 })
@@ -26,6 +27,7 @@ export class Header {
 
   protected readonly userService = inject(UserService)
   protected readonly authService = inject(AuthService)
+  protected readonly themeService = inject(ThemeService)
   readonly logoName = "PISTA"
   readonly logoClass = hlmH4
 

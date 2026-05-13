@@ -131,6 +131,16 @@
     @apply bg-background text-foreground;
     letter-spacing: var(--tracking-normal);
   }
+  html.theme-transitioning,
+  html.theme-transitioning *,
+  html.theme-transitioning *::before,
+  html.theme-transitioning *::after {
+    transition:
+      background-color 300ms ease,
+      border-color 300ms ease,
+      fill 300ms ease,
+      stroke 300ms ease !important;
+  }
 }
 
 @theme inline {

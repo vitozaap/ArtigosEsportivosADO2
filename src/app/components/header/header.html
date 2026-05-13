@@ -10,6 +10,20 @@
     </div>
   </div>
   <div class="flex items-center gap-1">
+    <button
+      hlmBtn
+      size="icon-sm"
+      variant="ghost"
+      class="cursor-pointer"
+      [attr.aria-label]="themeService.theme() === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro'"
+      (click)="themeService.toggle()"
+    >
+      @if (themeService.theme() === 'dark') {
+        <ng-icon hlm size="sm" name="lucideSun" />
+      } @else {
+        <ng-icon hlm size="sm" name="lucideMoon" />
+      }
+    </button>
     <div class="flex gap-2 items-center border rounded-full px-2 py-1">
       <hlm-avatar size="sm">
         <span hlmAvatarFallback>
