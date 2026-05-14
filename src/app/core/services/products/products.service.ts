@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { apiUrl } from "../../api";
-import { Product } from "./types";
+import { Category, Product } from "./types";
 import { Observable } from "rxjs";
 
 
@@ -16,16 +16,20 @@ export class ProductsService {
         return this.httpClient.get<Product[]>(apiUrl)
     }
 
-    editProductBySKU(SKU: string, product: Product): Observable<Product | undefined> {
-        return this.httpClient.put<Product>(`${apiUrl}/${SKU}`, product)
+    editProductById(id: number, product: Product): Observable<Product | undefined> {
+        return this.httpClient.put<Product>(`${apiUrl}?id:eq=${id}`, product)
     }
 
-    deleteProductBySKU(SKU: string): Observable<Product | undefined> {
-        return this.httpClient.delete<Product>(`${apiUrl}/${SKU}`)
+    deleteProductById(id: number): Observable<Product | undefined> {
+        return this.httpClient.delete<Product>(`${apiUrl}?id:eq=${id}`)
     }
 
     createProduct(product: Product): Observable<Product> {
         return this.httpClient.post<Product>(`${apiUrl}`, product)
+    }
+
+    getProductsByCategory(category: Category) {
+        return this.httpClient.get<Product[]>(`${apiUrl}?category:eq=${category}`)
     }
 
 }
