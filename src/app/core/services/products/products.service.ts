@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { apiUrl } from "../../api";
 import { Category, Product } from "./types";
 import { Observable } from "rxjs";
@@ -10,7 +10,8 @@ import { Observable } from "rxjs";
     providedIn: "root"
 })
 export class ProductsService {
-    constructor(private readonly httpClient: HttpClient) { }
+    private readonly httpClient = inject(HttpClient)
+    constructor() { }
 
     getProducts(): Observable<Product[]> {
         return this.httpClient.get<Product[]>(apiUrl)
@@ -28,7 +29,7 @@ export class ProductsService {
         return this.httpClient.post<Product>(`${apiUrl}`, product)
     }
 
-    getProductsByCategory(category: Category) {
+    getProductsByCategory(category: Category): Observable<Product[]> {
         return this.httpClient.get<Product[]>(`${apiUrl}?category:eq=${category}`)
     }
 
