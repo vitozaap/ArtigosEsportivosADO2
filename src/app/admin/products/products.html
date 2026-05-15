@@ -1,0 +1,142 @@
+<div class="w-full h-dvh flex flex-col">
+  <app-header />
+  <div class="flex justify-between w-full px-32 py-6">
+    <div class="flex flex-col gap-1">
+      <h4 [class]="h4">Gestão de Produtos</h4>
+      <p class="text-sm text-muted-foreground">Adicione, edite ou remova produtos do catálogo.</p>
+    </div>
+    <div class="flex">
+      <hlm-dialog>
+        <button hlmBtn class="cursor-pointer" hlmDialogTrigger hlmBtn>
+          <ng-icon name="lucidePlus" /> Novo Produto
+        </button>
+        <hlm-dialog-content class="" *hlmDialogPortal="let ctx">
+          <hlm-dialog-header>
+            <h3 hlmDialogTitle>Novo produto</h3>
+            <p hlmDialogDescription>
+              Crie um novo produto e clique <b>adicionar</b> quando finalizar.
+            </p>
+          </hlm-dialog-header>
+
+          <form
+            [formGroup]="productForm"
+            (ngSubmit)="createProduct()"
+            id="newProductForm"
+            class="grid gap-4"
+          >
+            <div class="grid gap-3">
+              <label hlmLabel class="text-right">Nome do produto</label>
+              <input
+                hlmInput
+                id="name"
+                formControlName="name"
+                required
+                placeholder="Bola de futebol"
+              />
+            </div>
+            <div class="grid gap-3">
+              <label hlmLabel for="brand" class="text-right">Marca</label>
+              <input hlmInput id="brand" formControlName="brand" required placeholder="Nike" />
+            </div>
+            <div class="grid gap-3">
+              <label hlmLabel for="price" class="text-right">Preço</label>
+              <hlm-input-group>
+                <hlm-input-group-addon>
+                  <hlm-input-group-text>R$</hlm-input-group-text>
+                </hlm-input-group-addon>
+                <input hlmInputGroupInput formControlName="price" placeholder="0.00" id="price" />
+              </hlm-input-group>
+            </div>
+            <div class="grid gap-3">
+              <label hlmLabel for="stock" class="text-right">Estoque disponível</label>
+              <input hlmInput type="number" id="stock" formControlName="stock" required placeholder="10" />
+            </div>
+            <div class="grid gap-3">
+              <label hlmLabel for="description" class="text-right">Descrição</label>
+              <textarea
+                hlmTextarea
+                formControlName="description"
+                id="description"
+                placeholder="Bola de futebol legal bla bla bla..."
+                class="min-h-20"
+              ></textarea>
+            </div>
+            <div class="grid gap-3">
+              <label hlmLabel for="category" class="text-right">Categoria</label>
+              <hlm-select [itemToString]="itemToString" formControlName="category">
+                <hlm-select-trigger class="w-full" buttonId="category">
+                  <hlm-select-value placeholder="Selecione uma categoria" />
+                </hlm-select-trigger>
+                <hlm-select-content *hlmSelectPortal>
+                  <hlm-select-group>
+                    <hlm-select-label>Categorias de produtos</hlm-select-label>
+                    @for (item of categories; track item.value) {
+                      <hlm-select-item [value]="item.value">{{ item.label }}</hlm-select-item>
+                    }
+                  </hlm-select-group>
+                </hlm-select-content>
+              </hlm-select>
+            </div>
+          </form>
+
+          <hlm-dialog-footer>
+            <button hlmBtn variant="outline" hlmDialogClose>Cancelar</button>
+            <button hlmBtn type="submit" form="newProductForm">Adicionar</button>
+          </hlm-dialog-footer>
+        </hlm-dialog-content>
+      </hlm-dialog>
+    </div>
+  </div>
+  <div class="w-full flex-1 min-h-0 flex justify-center py-6">
+    <div
+      hlmTableContainer
+      class="w-1/2 border max-h-full overflow-y-auto rounded-md scrollbar-thin [scrollbar-color:var(--border)_transparent] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-border [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/50 [&::-webkit-scrollbar-button]:hidden"
+    >
+      <table hlmTable>
+        <thead hlmTHead class="sticky top-0 bg-background z-10">
+          <tr hlmTr>
+            <th hlmTh>Produto</th>
+            <th hlmTh>ID</th>
+            <th hlmTh>Categoria</th>
+            <th hlmTh>Preço</th>
+            <th hlmTh class="text-end">Ações</th>
+          </tr>
+        </thead>
+        <tbody hlmTBody>
+          @for (product of products(); track product.id) {
+            <tr hlmTr>
+              <td hlmTd>{{ product.name }}</td>
+              <td hlmTd>{{ product.id }}</td>
+              <td hlmTd>{{ product.category }}</td>
+              <td hlmTd>{{ product.price }}</td>
+              <td hlmTd>
+                <div class="flex justify-end gap-2">
+                  <button
+                    hlmBtn
+                    variant="ghost"
+                    size="icon-sm"
+                    class="cursor-pointer"
+                    (click)="editProduct(product.id, product)"
+                    aria-label="Editar"
+                  >
+                    <ng-icon name="lucidePencil" />
+                  </button>
+                  <button
+                    hlmBtn
+                    variant="destructive"
+                    class="cursor-pointer"
+                    size="icon-sm"
+                    (click)="deleteProduct(product.id)"
+                    aria-label="Deletar"
+                  >
+                    <ng-icon name="lucideTrash2" />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

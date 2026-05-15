@@ -1,6 +1,6 @@
 
 
-export type Category = ["Futebol", "Basquete", "Corrida", "Tênis"]
+export type Category = "Futebol" | "Basquete" | "Corrida" | "Tênis" | "Geral" | undefined
 
 export interface Product {
     id: number
@@ -10,8 +10,7 @@ export interface Product {
     category: Category
     price: number
     stock: number
-    sizes: number[]
+
     description: string
 }
-
 
