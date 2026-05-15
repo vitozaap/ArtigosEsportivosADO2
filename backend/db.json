@@ -1,7 +1,7 @@
 {
   "products": [
     {
-      "id": "1",
+      "id": 1,
       "userId": 1,
       "name": "Chuteira Mercurial Vapor 15",
       "brand": "nike",
@@ -12,7 +12,7 @@
       "description": "Chuteira de campo leve com cabedal Flyknit, ideal para jogadores que priorizam velocidade."
     },
     {
-      "id": "2",
+      "id": 2,
       "userId": 1,
       "name": "Chuteira Predator Accuracy",
       "brand": "adidas",
@@ -23,7 +23,7 @@
       "description": "Chuteira com tecnologia Controlframe que proporciona precisão em passes e finalizações."
     },
     {
-      "id": "3",
+      "id": 3,
       "userId": 2,
       "name": "Bola Campo Penalty S11 R3",
       "brand": "penalty",
@@ -34,7 +34,7 @@
       "description": "Bola oficial para campo com tecnologia Termotec, aprovada pela FIFA Quality Pro."
     },
     {
-      "id": "4",
+      "id": 4,
       "userId": 2,
       "name": "Camisa Seleção Brasileira I 2024",
       "brand": "nike",
@@ -45,7 +45,7 @@
       "description": "Camisa oficial da Seleção Brasileira com tecido Dri-FIT ADV para máxima respirabilidade."
     },
     {
-      "id": "5",
+      "id": 5,
       "userId": 1,
       "name": "Tênis Air Jordan 1 Mid",
       "brand": "nike",
@@ -56,7 +56,7 @@
       "description": "Clássico tênis de basquete com cabedal em couro e amortecimento Air-Sole no calcanhar."
     },
     {
-      "id": "6",
+      "id": 6,
       "userId": 3,
       "name": "Tênis Dame 8",
       "brand": "adidas",
@@ -67,7 +67,7 @@
       "description": "Tênis de basquete assinado por Damian Lillard com tecnologia Bounce Pro para explosão."
     },
     {
-      "id": "7",
+      "id": 7,
       "userId": 3,
       "name": "Bola Basquete Spalding TF-1000",
       "brand": "spalding",
@@ -78,7 +78,7 @@
       "description": "Bola oficial de basquete com tecnologia ZK Microfiber Composite Cover para quadras indoor."
     },
     {
-      "id": "8",
+      "id": 8,
       "userId": 2,
       "name": "Tênis Pegasus 40",
       "brand": "nike",
@@ -89,7 +89,7 @@
       "description": "Tênis de corrida com amortecimento React e duas unidades Zoom Air para passadas responsivas."
     },
     {
-      "id": "9",
+      "id": 9,
       "userId": 2,
       "name": "Tênis Adizero Boston 12",
       "brand": "adidas",
@@ -100,7 +100,7 @@
       "description": "Tênis de treino e prova com placa Energyrods e espuma Lightstrike Pro para longas distâncias."
     },
     {
-      "id": "10",
+      "id": 10,
       "userId": 4,
       "name": "Tênis Gel-Nimbus 25",
       "brand": "asics",
@@ -111,7 +111,7 @@
       "description": "Tênis premium com tecnologia PureGel e espuma FF Blast Plus para máximo conforto em rodagens longas."
     },
     {
-      "id": "11",
+      "id": 11,
       "userId": 4,
       "name": "Tênis Wave Prophecy 12",
       "brand": "mizuno",
@@ -122,7 +122,7 @@
       "description": "Tênis com sistema Wave infinito de amortecimento, voltado para corredores que buscam estabilidade."
     },
     {
-      "id": "12",
+      "id": 12,
       "userId": 1,
       "name": "Tênis Court Vision Low",
       "brand": "nike",
@@ -133,7 +133,7 @@
       "description": "Tênis casual inspirado no basquete dos anos 80, com cabedal em couro sintético."
     },
     {
-      "id": "13",
+      "id": 13,
       "userId": 5,
       "name": "Tênis Stan Smith",
       "brand": "adidas",
@@ -144,7 +144,7 @@
       "description": "Tênis clássico em couro com perfuração nas 3 listras, ícone do estilo minimalista."
     },
     {
-      "id": "14",
+      "id": 14,
       "userId": 5,
       "name": "Tênis Suede Classic XXI",
       "brand": "puma",
@@ -155,7 +155,7 @@
       "description": "Tênis com cabedal em camurça e solado de borracha, referência do streetwear desde 1968."
     },
     {
-      "id": "15",
+      "id": 15,
       "userId": 3,
       "name": "Tênis 574 Core",
       "brand": "new balance",
@@ -166,7 +166,7 @@
       "description": "Tênis lifestyle com entressola ENCAP que une espuma EVA e anel de poliuretano para suporte."
     },
     {
-      "id": "16",
+      "id": 16,
       "userId": 2,
       "name": "Chuteira Future 7 Match",
       "brand": "puma",
@@ -177,7 +177,7 @@
       "description": "Chuteira de campo com sistema FUZIONFIT para ajuste personalizado e maior aderência."
     },
     {
-      "id": "17",
+      "id": 17,
       "userId": 4,
       "name": "Tênis Morelia Neo IV Beta Japan",
       "brand": "mizuno",
@@ -188,7 +188,7 @@
       "description": "Chuteira fabricada no Japão com cabedal em couro de canguru, leveza e toque diferenciados."
     },
     {
-      "id": "18",
+      "id": 18,
       "userId": 1,
       "name": "Tênis RS-X Efekt",
       "brand": "puma",
@@ -199,7 +199,7 @@
       "description": "Tênis chunky com tecnologia Running System que oferece amortecimento e visual retrô-futurista."
     },
     {
-      "id": "19",
+      "id": 19,
       "userId": 5,
       "name": "Bola Nike Flight Premier League",
       "brand": "nike",
@@ -210,7 +210,7 @@
       "description": "Bola oficial da Premier League com tecnologia AerowSculpt para trajetória estável e precisa."
     },
     {
-      "id": "20",
+      "id": 20,
       "userId": 3,
       "name": "Tênis KD 16",
       "brand": "nike",
@@ -221,7 +221,7 @@
       "description": "Tênis de basquete assinado por Kevin Durant com unidade Zoom Air em todo o comprimento."
     },
     {
-      "id": "21",
+      "id": 21,
       "userId": 4,
       "name": "Tênis Fresh Foam X 1080v13",
       "brand": "new balance",
@@ -232,7 +232,7 @@
       "description": "Tênis premium de corrida com entressola Fresh Foam X para amortecimento macio em longas distâncias."
     },
     {
-      "id": "22",
+      "id": 22,
       "userId": 2,
       "name": "Chuteira Copa Pure 2 Elite",
       "brand": "adidas",
