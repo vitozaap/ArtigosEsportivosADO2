@@ -44,12 +44,25 @@
                 <hlm-input-group-addon>
                   <hlm-input-group-text>R$</hlm-input-group-text>
                 </hlm-input-group-addon>
-                <input hlmInputGroupInput formControlName="price" placeholder="0.00" id="price" />
+                <input
+                  hlmInputGroupInput
+                  formControlName="price"
+                  type="number"
+                  placeholder="0.00"
+                  id="price"
+                />
               </hlm-input-group>
             </div>
             <div class="grid gap-3">
               <label hlmLabel for="stock" class="text-right">Estoque disponível</label>
-              <input hlmInput type="number" id="stock" formControlName="stock" required placeholder="10" />
+              <input
+                hlmInput
+                type="number"
+                id="stock"
+                formControlName="stock"
+                required
+                placeholder="10"
+              />
             </div>
             <div class="grid gap-3">
               <label hlmLabel for="description" class="text-right">Descrição</label>
@@ -88,55 +101,104 @@
     </div>
   </div>
   <div class="w-full flex-1 min-h-0 flex justify-center py-6">
-    <div
-      hlmTableContainer
-      class="w-1/2 border max-h-full overflow-y-auto rounded-md scrollbar-thin [scrollbar-color:var(--border)_transparent] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-border [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/50 [&::-webkit-scrollbar-button]:hidden"
-    >
-      <table hlmTable>
-        <thead hlmTHead class="sticky top-0 bg-background z-10">
-          <tr hlmTr>
-            <th hlmTh>Produto</th>
-            <th hlmTh>ID</th>
-            <th hlmTh>Categoria</th>
-            <th hlmTh>Preço</th>
-            <th hlmTh class="text-end">Ações</th>
-          </tr>
-        </thead>
-        <tbody hlmTBody>
-          @for (product of products(); track product.id) {
+    @if (products().length == 0) {
+      <hlm-empty>
+        <hlm-empty-header>
+          <hlm-empty-media variant="icon">
+            <ng-icon name="lucideSquircleDashed" />
+          </hlm-empty-media>
+          <div hlmEmptyTitle>Nenhum Produto Encontrado</div>
+          <div hlmEmptyDescription>
+            Você ainda não publicou nenhum produto. Clique em <b>Novo produto</b> para adicionar o
+            primeiro.
+          </div>
+        </hlm-empty-header>
+      </hlm-empty>
+    }
+    @if (products().length > 0) {
+      <div
+        hlmTableContainer
+        class="w-1/2 border h-max max-h-full overflow-y-auto rounded-md scrollbar-thin [scrollbar-color:var(--border)_transparent] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-border [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/50 [&::-webkit-scrollbar-button]:hidden"
+      >
+        <table hlmTable>
+          <thead hlmTHead class="sticky top-0 bg-background z-10">
             <tr hlmTr>
-              <td hlmTd>{{ product.name }}</td>
-              <td hlmTd>{{ product.id }}</td>
-              <td hlmTd>{{ product.category }}</td>
-              <td hlmTd>{{ product.price }}</td>
-              <td hlmTd>
-                <div class="flex justify-end gap-2">
-                  <button
-                    hlmBtn
-                    variant="ghost"
-                    size="icon-sm"
-                    class="cursor-pointer"
-                    (click)="editProduct(product.id, product)"
-                    aria-label="Editar"
-                  >
-                    <ng-icon name="lucidePencil" />
-                  </button>
-                  <button
-                    hlmBtn
-                    variant="destructive"
-                    class="cursor-pointer"
-                    size="icon-sm"
-                    (click)="deleteProduct(product.id)"
-                    aria-label="Deletar"
-                  >
-                    <ng-icon name="lucideTrash2" />
-                  </button>
-                </div>
-              </td>
+              <th hlmTh>Produto</th>
+              <th hlmTh>ID</th>
+              <th hlmTh>Categoria</th>
+              <th hlmTh>Marca</th>
+              <th hlmTh>Estoque</th>
+              <th hlmTh>Preço</th>
+              <th hlmTh class="text-end">Ações</th>
             </tr>
-          }
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody hlmTBody>
+            @for (product of products(); track product.id) {
+              <tr hlmTr>
+                <td hlmTd>{{ product.name }}</td>
+                <td hlmTd>{{ product.id }}</td>
+                <td hlmTd>
+                  {{ product.category?.charAt(0)?.toUpperCase() + product.category!.slice(1) }}
+                </td>
+                <td hlmTd>{{ product.brand }}</td>
+                <td hlmTd>{{ product.stock }}</td>
+                <td hlmTd>R$ {{ product.price }}</td>
+                <td hlmTd>
+                  <div class="flex justify-end gap-2">
+                    <button
+                      hlmBtn
+                      variant="ghost"
+                      size="icon-sm"
+                      class="cursor-pointer"
+                      (click)="editProduct(product.id, product)"
+                      aria-label="Editar"
+                    >
+                      <ng-icon name="lucidePencil" />
+                    </button>
+                    <hlm-alert-dialog>
+                      <button
+                        hlmBtn
+                        variant="destructive"
+                        class="cursor-pointer"
+                        size="icon-sm"
+                        aria-label="Deletar"
+                        hlmDialogTrigger
+                      >
+                        <ng-icon name="lucideTrash2" />
+                      </button>
+                      <hlm-alert-dialog-content size="sm" *hlmAlertDialogPortal="let ctx">
+                        <hlm-alert-dialog-header>
+                          <h2 hlmAlertDialogTitle>
+                            Deseja Deletar <b>{{ product.name }}</b
+                            >?
+                          </h2>
+                          <p hlmAlertDialogDescription>
+                            Você tem certeza que deseja deletar este produto? Esta ação não poderá
+                            ser revertida.
+                          </p>
+                        </hlm-alert-dialog-header>
+                        <hlm-alert-dialog-footer>
+                          <button class="cursor-pointer" hlmAlertDialogCancel (click)="ctx.close()">
+                            Cancelar
+                          </button>
+                          <button
+                            class="cursor-pointer"
+                            hlmAlertDialogAction
+                            (click)="deleteProduct(product.id)"
+                            variant="destructive"
+                          >
+                            Deletar
+                          </button>
+                        </hlm-alert-dialog-footer>
+                      </hlm-alert-dialog-content>
+                    </hlm-alert-dialog>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
   </div>
 </div>

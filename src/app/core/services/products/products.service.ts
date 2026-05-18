@@ -22,7 +22,7 @@ export class ProductsService {
     }
 
     deleteProductById(id: number): Observable<Product | undefined> {
-        return this.httpClient.delete<Product>(`${apiUrl}?id:eq=${id}`)
+        return this.httpClient.delete<Product>(`${apiUrl}/${id}`)
     }
 
     createProduct(product: Product): Observable<Product> {

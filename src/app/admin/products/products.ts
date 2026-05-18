@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucidePencil, lucidePlus, lucideTrash2 } from '@ng-icons/lucide';
+import { lucideArrowUpRight, lucideFolderCode, lucidePencil, lucidePlus, lucideSquircleDashed, lucideTrash2 } from '@ng-icons/lucide';
 import { ProductsService } from '../../core/services/products/products.service';
 import { Category, Product } from '../../core/services/products/types';
 import { Header } from "../../components/header/header";
@@ -14,6 +14,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { HlmInputGroupImports } from '@spartan-ng/helm/input-group';
 import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
+import { HlmEmptyImports } from '@spartan-ng/helm/empty';
+import { HlmAlertDialogImports } from '@spartan-ng/helm/alert-dialog';
 
 
 type SelectCategoriesType = {
@@ -28,6 +30,8 @@ type SelectCategoriesType = {
     HlmButtonImports,
     NgIcon,
     Header,
+    HlmEmptyImports,
+    HlmAlertDialogImports,
     HlmDialogImports,
     HlmLabelImports,
     HlmInputImports,
@@ -36,7 +40,7 @@ type SelectCategoriesType = {
     HlmTextareaImports,
     HlmSelectImports
   ],
-  providers: [provideIcons({ lucidePencil, lucideTrash2, lucidePlus })],
+  providers: [provideIcons({ lucidePencil, lucideTrash2, lucidePlus, lucideSquircleDashed })],
   templateUrl: './products.html',
 })
 
@@ -46,8 +50,7 @@ export class Products implements OnInit {
   readonly h4 = hlmH4
   readonly p = hlmP
   readonly products = signal<Product[]>([]);
-
-
+  public portal: any;
   //Criei para usar o select, a lib de components pede
   public readonly categories: SelectCategoriesType[] = [
     { label: 'Geral', value: 'geral' },
@@ -102,6 +105,7 @@ export class Products implements OnInit {
       this.productsService.deleteProductById(id).subscribe(() => {
         window.location.reload()
       })
+      window.location.reload()
     }
   }
 }

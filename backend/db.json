@@ -1,13 +1,13 @@
 {
   "products": [
     {
-      "id": "qmzHGTWlqlI",
+      "id": "7hFPIQd_uxI",
       "brand": "Nike",
-      "category": "futebol",
-      "description": "teste teste teste teste teste teste teste teste teste ",
-      "name": "teste",
-      "price": "23",
-      "stock": 1,
+      "category": "geral",
+      "description": "2",
+      "name": "Teste",
+      "price": 2,
+      "stock": 2,
       "userId": 1
     }
   ],
