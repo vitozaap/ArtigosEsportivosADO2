@@ -6,13 +6,12 @@ import { HlmButtonImports } from "@spartan-ng/helm/button"
 import { HlmCardImports } from "@spartan-ng/helm/card"
 import { HlmInputImports } from "@spartan-ng/helm/input"
 import { HlmLabelImports } from '@spartan-ng/helm/label';
-import { HlmToasterImports } from '@spartan-ng/helm/sonner';
 import { UserService } from '../core/services/user/user.service';
 import { admin, user } from '../core/users';
 import { AuthService } from '../core/services/auth/auth.service';
 @Component({
   selector: 'app-login',
-  imports: [HlmButtonImports, HlmCardImports, HlmInputImports, HlmLabelImports, RouterModule, ReactiveFormsModule, HlmToasterImports],
+  imports: [HlmButtonImports, HlmCardImports, HlmInputImports, HlmLabelImports, RouterModule, ReactiveFormsModule],
   providers: [],
   templateUrl: './login.html',
 })

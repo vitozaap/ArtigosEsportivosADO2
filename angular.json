@@ -25,6 +25,7 @@
                 "input": "public"
               }
             ],
+            "baseHref": "/ArtigosEsportivosADO2/",
             "styles": ["src/styles.css"],
             "security": {
               "allowedHosts": []

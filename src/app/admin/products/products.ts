@@ -16,6 +16,7 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { HlmEmptyImports } from '@spartan-ng/helm/empty';
 import { HlmAlertDialogImports } from '@spartan-ng/helm/alert-dialog';
+import { toast } from '@spartan-ng/brain/sonner';
 
 
 type SelectCategoriesType = {
@@ -89,8 +90,12 @@ export class Products implements OnInit {
         stock: this.productForm.value.stock!,
         userId: 1
       }).subscribe(() => {
-        window.location.reload()
+        toast.success("Produto Adicionado", {
+          description: `Produto criado com sucesso!`
+        })
+        setTimeout(() => window.location.reload(), 1500)
       })
+
     }
   }
 
@@ -103,9 +108,12 @@ export class Products implements OnInit {
   protected deleteProduct(id: number) {
     if (id) {
       this.productsService.deleteProductById(id).subscribe(() => {
-        window.location.reload()
+        toast.success("Produto deletado", {
+          description: "Produto deletado com sucesso!"
+        })
+        setTimeout(() => window.location.reload(), 1500)
       })
-      window.location.reload()
+
     }
   }
 }

@@ -94,7 +94,7 @@
 
           <hlm-dialog-footer>
             <button hlmBtn variant="outline" hlmDialogClose>Cancelar</button>
-            <button hlmBtn type="submit" form="newProductForm">Adicionar</button>
+            <button hlmBtn type="submit" [disabled]="!productForm.valid" form="newProductForm" hlmDialogClose>Adicionar</button>
           </hlm-dialog-footer>
         </hlm-dialog-content>
       </hlm-dialog>
@@ -184,6 +184,7 @@
                           <button
                             class="cursor-pointer"
                             hlmAlertDialogAction
+                            (click)="ctx.close()"
                             (click)="deleteProduct(product.id)"
                             variant="destructive"
                           >

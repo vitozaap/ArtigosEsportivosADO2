@@ -1,15 +1,4 @@
 {
-  "products": [
-    {
-      "id": "7hFPIQd_uxI",
-      "brand": "Nike",
-      "category": "geral",
-      "description": "2",
-      "name": "Teste",
-      "price": 2,
-      "stock": 2,
-      "userId": 1
-    }
-  ],
+  "products": [],
   "$schema": "./node_modules/json-server/schema.json"
 }
