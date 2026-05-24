@@ -94,7 +94,15 @@
 
           <hlm-dialog-footer>
             <button hlmBtn variant="outline" hlmDialogClose>Cancelar</button>
-            <button hlmBtn type="submit" [disabled]="!productForm.valid" form="newProductForm" hlmDialogClose>Adicionar</button>
+            <button
+              hlmBtn
+              type="submit"
+              [disabled]="!productForm.valid"
+              form="newProductForm"
+              hlmDialogClose
+            >
+              Adicionar
+            </button>
           </hlm-dialog-footer>
         </hlm-dialog-content>
       </hlm-dialog>
@@ -145,16 +153,127 @@
                 <td hlmTd>R$ {{ product.price }}</td>
                 <td hlmTd>
                   <div class="flex justify-end gap-2">
-                    <button
-                      hlmBtn
-                      variant="ghost"
-                      size="icon-sm"
-                      class="cursor-pointer"
-                      (click)="editProduct(product.id, product)"
-                      aria-label="Editar"
-                    >
-                      <ng-icon name="lucidePencil" />
-                    </button>
+                    <hlm-dialog>
+                      <button
+                        hlmBtn
+                        hlmDialogTrigger
+                        variant="ghost"
+                        size="icon-sm"
+                        class="cursor-pointer"
+                        aria-label="Editar"
+                      >
+                        <ng-icon name="lucidePencil" />
+                      </button>
+                      <hlm-dialog-content *hlmDialogPortal="let ctx">
+                        <hlm-dialog-header>
+                          <h3 hlmDialogTitle>
+                            Editar produto: <b>{{ product.name }}</b>
+                          </h3>
+                          <p hlmDialogDescription>
+                            Edite o produto e clique <b>salvar</b> quando finalizar.
+                          </p></hlm-dialog-header
+                        >
+                        <form
+                          [formGroup]="editProductForm"
+                          (ngSubmit)="editProduct(product)"
+                          id="editProductForm"
+                          class="grid gap-4"
+                        >
+                          <div class="grid gap-3">
+                            <label hlmLabel class="text-right">Nome do produto</label>
+                            <input
+                              hlmInput
+                              id="name"
+                              formControlName="name"
+                              [placeholder]="product.name"
+                            />
+                          </div>
+                          <div class="grid gap-3">
+                            <label hlmLabel for="brand" class="text-right">Marca</label>
+                            <input
+                              hlmInput
+                              id="brand"
+                              formControlName="brand"
+                              [placeholder]="product.brand"
+                            />
+                          </div>
+                          <div class="grid gap-3">
+                            <label hlmLabel for="price" class="text-right">Preço</label>
+                            <hlm-input-group>
+                              <hlm-input-group-addon>
+                                <hlm-input-group-text>R$</hlm-input-group-text>
+                              </hlm-input-group-addon>
+                              <input
+                                hlmInputGroupInput
+                                formControlName="price"
+                                type="number"
+                                [placeholder]="product.price"
+                                id="price"
+                              />
+                            </hlm-input-group>
+                          </div>
+                          <div class="grid gap-3">
+                            <label hlmLabel for="stock" class="text-right"
+                              >Estoque disponível</label
+                            >
+                            <input
+                              hlmInput
+                              type="number"
+                              id="stock"
+                              formControlName="stock"
+                              [placeholder]="product.stock"
+                            />
+                          </div>
+                          <div class="grid gap-3">
+                            <label hlmLabel for="description" class="text-right">Descrição</label>
+                            <textarea
+                              hlmTextarea
+                              formControlName="description"
+                              id="description"
+                              [placeholder]="product.description"
+                              class="min-h-20"
+                            ></textarea>
+                          </div>
+                          <div class="grid gap-3">
+                            <label hlmLabel for="category" class="text-right">Categoria</label>
+                            <hlm-select [itemToString]="itemToString" formControlName="category">
+                              <hlm-select-trigger class="w-full" buttonId="category">
+                                <hlm-select-value
+                                  [placeholder]="
+                                    product.category!.charAt(0) + product.category!.slice(1)
+                                  "
+                                />
+                              </hlm-select-trigger>
+                              <hlm-select-content *hlmSelectPortal>
+                                <hlm-select-group>
+                                  <hlm-select-label>Categorias de produtos</hlm-select-label>
+                                  @for (item of categories; track item.value) {
+                                    <hlm-select-item [value]="item.value">{{
+                                      item.label
+                                    }}</hlm-select-item>
+                                  }
+                                </hlm-select-group>
+                              </hlm-select-content>
+                            </hlm-select>
+                          </div>
+                        </form>
+
+                        <hlm-dialog-footer>
+                          <button
+                            hlmBtn
+                            type="button"
+                            variant="outline"
+                            hlmDialogClose
+                            (click)="resetarEditForm()"
+                          >
+                            Cancelar
+                          </button>
+                          <button hlmBtn type="submit" form="editProductForm" hlmDialogClose>
+                            Salvar alterações
+                          </button>
+                        </hlm-dialog-footer>
+                      </hlm-dialog-content>
+                    </hlm-dialog>
                     <hlm-alert-dialog>
                       <button
                         hlmBtn

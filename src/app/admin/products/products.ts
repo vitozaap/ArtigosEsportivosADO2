@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { lucideArrowUpRight, lucideFolderCode, lucidePencil, lucidePlus, lucideSquircleDashed, lucideTrash2 } from '@ng-icons/lucide';
+import { lucidePencil, lucidePlus, lucideSquircleDashed, lucideTrash2 } from '@ng-icons/lucide';
 import { ProductsService } from '../../core/services/products/products.service';
 import { Category, Product } from '../../core/services/products/types';
 import { Header } from "../../components/header/header";
@@ -72,16 +72,29 @@ export class Products implements OnInit {
     stock: new FormControl(0, [Validators.required, Validators.min(1)]),
   })
 
+  editProductForm = new FormGroup({
+    brand: new FormControl(),
+    category: new FormControl(),
+    description: new FormControl(),
+    name: new FormControl(),
+    price: new FormControl(),
+    stock: new FormControl(),
+  })
+
   ngOnInit(): void {
     this.productsService.getProducts().subscribe((products) => {
       this.products.set(products)
     })
   }
 
+  resetarEditForm() {
+    this.editProductForm.reset()
+  }
+
   protected createProduct() {
+
     if (this.productForm.valid) {
       this.productsService.createProduct({
-        id: this.products().length + 1,
         brand: this.productForm.value.brand!,
         category: this.productForm.value.category!,
         description: this.productForm.value.description!,
@@ -90,7 +103,7 @@ export class Products implements OnInit {
         stock: this.productForm.value.stock!,
         userId: 1
       }).subscribe(() => {
-        toast.success("Produto Adicionado", {
+        toast.success("Produto adicionado", {
           description: `Produto criado com sucesso!`
         })
         setTimeout(() => window.location.reload(), 1500)
@@ -99,13 +112,28 @@ export class Products implements OnInit {
     }
   }
 
-  protected editProduct(id: number, product: Product): void {
-    this.productsService.editProductById(id, product).subscribe(() => {
-      window.location.reload()
-    })
+  protected editProduct(prevData: Product): void {
+    if (this.editProductForm.valid) {
+      console.log(this.editProductForm.value)
+      this.productsService.editProductById(prevData.id, {
+        brand: this.editProductForm.value.brand ? this.editProductForm.value.brand : prevData.brand,
+        category: this.editProductForm.value.category! ? this.editProductForm.value.category! : prevData.category,
+        description: this.editProductForm.value.description! ? this.editProductForm.value.description! : prevData.description,
+        name: this.editProductForm.value.name! ? this.editProductForm.value.name! : prevData.name,
+        price: this.editProductForm.value.price! ? this.editProductForm.value.price! : prevData.price,
+        stock: this.editProductForm.value.stock! ? this.editProductForm.value.stock! : prevData.stock,
+        userId: 1,
+        id: prevData.id,
+      }).subscribe(() => {
+        toast.success("Produto editado", {
+          description: "Produto editado com sucesso!"
+        })
+        setTimeout(() => window.location.reload(), 1500)
+      })
+    }
   }
 
-  protected deleteProduct(id: number) {
+  protected deleteProduct(id: string) {
     if (id) {
       this.productsService.deleteProductById(id).subscribe(() => {
         toast.success("Produto deletado", {
