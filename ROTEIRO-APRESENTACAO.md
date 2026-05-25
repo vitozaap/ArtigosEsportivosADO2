@@ -318,7 +318,8 @@ protected formatCategory(category: Product['category']): string {
 
 ---
 
-## 👤 Pessoa E — Dialog (~3 min)
+## 👤
+ Pessoa E — Dialog (~3 min)
 
 ### Roteiro de fala
 
@@ -426,7 +427,7 @@ Pra ajudar a responder sobre as aulas do pro:
 
 ---
 
-# ⏱️ Cronograma sugerido (~17 min total)
+# ⏱️ Cronograma
 
 | Tempo | Quem | O quê |
 |-------|------|-------|
