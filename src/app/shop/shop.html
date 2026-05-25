@@ -1,1 +1,91 @@
-<app-header />
+<div class="w-full min-h-dvh flex flex-col">
+  <app-header />
+
+  <div class="w-full px-32 py-6 flex flex-col gap-6">
+    <div class="flex flex-col gap-1">
+      <h3 [class]="h3">Catálogo</h3>
+      <p class="text-sm text-muted-foreground">
+        {{ products().length }} produtos disponíveis
+      </p>
+    </div>
+
+    @if (products().length === 0) {
+      <hlm-empty>
+        <hlm-empty-header>
+          <hlm-empty-media variant="icon">
+            <ng-icon name="lucideSquircleDashed" />
+          </hlm-empty-media>
+          <div hlmEmptyTitle>Nenhum produto disponível</div>
+          <div hlmEmptyDescription>
+            Os produtos cadastrados aparecerão aqui.
+          </div>
+        </hlm-empty-header>
+      </hlm-empty>
+    } @else {
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        @for (product of products(); track product.id) {
+          <hlm-card class="flex flex-col">
+            <hlm-card-header class="gap-2">
+              <p class="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+                {{ formatCategory(product.category) }}
+              </p>
+              <h4 hlmCardTitle class="text-lg">{{ product.name }}</h4>
+            </hlm-card-header>
+
+            <div hlmCardContent class="flex flex-col gap-2 border-t pt-4">
+              <p class="text-2xl font-bold">R$ {{ product.price }}</p>
+            </div>
+
+            <div hlmCardFooter class="flex items-center justify-between">
+              <span class="text-xs text-muted-foreground">{{ product.stock }} em estoque</span>
+
+              <hlm-dialog>
+                <button
+                  hlmBtn
+                  hlmDialogTrigger
+                  variant="ghost"
+                  size="sm"
+                  class="cursor-pointer"
+                >
+                  Ver
+                  <ng-icon hlm size="sm" name="lucideArrowRight" />
+                </button>
+
+                <hlm-dialog-content *hlmDialogPortal="let ctx">
+                  <hlm-dialog-header>
+                    <h3 hlmDialogTitle>{{ product.name }}</h3>
+                    <p hlmDialogDescription>
+                      {{ formatCategory(product.category) }} · {{ product.brand }}
+                    </p>
+                  </hlm-dialog-header>
+
+                  <div class="flex flex-col gap-4 py-2">
+                    <div class="flex items-baseline justify-between">
+                      <span class="text-3xl font-bold">R$ {{ product.price }}</span>
+                      <span class="text-sm text-muted-foreground">
+                        {{ product.stock }} em estoque
+                      </span>
+                    </div>
+
+                    <div class="flex flex-col gap-1">
+                      <p class="text-xs font-semibold uppercase text-muted-foreground">
+                        Descrição
+                      </p>
+                      <p class="text-sm">{{ product.description }}</p>
+                    </div>
+                  </div>
+
+                  <hlm-dialog-footer>
+                    <button hlmBtn variant="outline" hlmDialogClose class="cursor-pointer">
+                      Fechar
+                    </button>
+                  </hlm-dialog-footer>
+                </hlm-dialog-content>
+              </hlm-dialog>
+            </div>
+          </hlm-card>
+        }
+      </div>
+    }
+  </div>
+</div>

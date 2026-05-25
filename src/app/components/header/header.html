@@ -2,10 +2,19 @@
   <div class="flex items-center gap-12">
     <h1 [class]="logoClass">{{ logoName }}</h1>
     <div class="flex gap-2">
-      @for (item of adminHeaderItems; track item) {
-        <button hlmBtn variant="ghost" class="cursor-pointer" [routerLink]="item.path">
-          {{ item.label }}
-        </button>
+      @if (isAdmin) {
+        @for (item of adminHeaderItems; track item) {
+          <button hlmBtn variant="ghost" class="cursor-pointer" [routerLink]="item.path">
+            {{ item.label }}
+          </button>
+        }
+      }
+      @if (!isAdmin) {
+        @for (item of userHeaderItems; track item) {
+          <button hlmBtn variant="ghost" class="cursor-pointer" [routerLink]="item.path">
+            {{ item.label }}
+          </button>
+        }
       }
     </div>
   </div>
@@ -15,7 +24,9 @@
       size="icon-sm"
       variant="ghost"
       class="cursor-pointer"
-      [attr.aria-label]="themeService.theme() === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro'"
+      [attr.aria-label]="
+        themeService.theme() === 'dark' ? 'Ativar tema claro' : 'Ativar tema escuro'
+      "
       (click)="themeService.toggle()"
     >
       @if (themeService.theme() === 'dark') {

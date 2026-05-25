@@ -1,9 +1,48 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideArrowRight, lucideSquircleDashed } from '@ng-icons/lucide';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { HlmDialogImports } from '@spartan-ng/helm/dialog';
+import { HlmEmptyImports } from '@spartan-ng/helm/empty';
+import { HlmIcon } from '@spartan-ng/helm/icon';
+import { hlmH3, hlmH4, hlmP } from '@spartan-ng/helm/typography';
 import { Header } from '../components/header/header';
+import { ProductsService } from '../core/services/products/products.service';
+import { Product } from '../core/services/products/types';
 
 @Component({
   selector: 'app-shop',
-  imports: [Header],
+  imports: [
+    Header,
+    NgIcon,
+    HlmIcon,
+    HlmButtonImports,
+    HlmCardImports,
+    HlmDialogImports,
+    HlmEmptyImports,
+  ],
+  providers: [provideIcons({ lucideArrowRight, lucideSquircleDashed })],
   templateUrl: './shop.html',
 })
-export class Shop { }
+export class Shop implements OnInit {
+  private readonly productsService = inject(ProductsService);
+
+  readonly h3 = hlmH3;
+  readonly h4 = hlmH4;
+  readonly p = hlmP;
+
+  readonly products = signal<Product[]>([]);
+
+  ngOnInit(): void {
+    this.productsService.getProducts().subscribe((products) => {
+      this.products.set(products);
+    });
+  }
+
+  protected formatCategory(category: Product['category']): string {
+    if (!category) return '';
+    const str = category.toString();
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  }
+}

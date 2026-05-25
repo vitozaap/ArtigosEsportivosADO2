@@ -39,5 +39,9 @@ export class Header {
     label: "Produtos",
     path: "/admin/products"
   }]
+  readonly userHeaderItems: HeaderItem[] = [{
+    label: "Catálogo",
+    path: "/shop",
+  }]
 
 }

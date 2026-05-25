@@ -32,8 +32,8 @@ export class Login {
 
   onSubmit() {
     if (this.form.valid) {
-
-
+      const users = this.userService.getUser().subscribe()
+      console.log(users)
       if (this.form.value.email == admin.email && this.form.value.password == admin.password) {
         this.userService.changeUser({ email: this.form.value.email!, password: this.form.value.password! })
         toast.success("Logado como admin!", {

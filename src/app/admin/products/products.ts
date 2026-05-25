@@ -4,7 +4,7 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucidePencil, lucidePlus, lucideSquircleDashed, lucideTrash2 } from '@ng-icons/lucide';
 import { ProductsService } from '../../core/services/products/products.service';
-import { Category, Product } from '../../core/services/products/types';
+import { categories, Product } from '../../core/services/products/types';
 import { Header } from "../../components/header/header";
 import { hlmH4, hlmP } from '@spartan-ng/helm/typography';
 import { HlmDialogImports } from "@spartan-ng/helm/dialog"
@@ -18,11 +18,6 @@ import { HlmEmptyImports } from '@spartan-ng/helm/empty';
 import { HlmAlertDialogImports } from '@spartan-ng/helm/alert-dialog';
 import { toast } from '@spartan-ng/brain/sonner';
 
-
-type SelectCategoriesType = {
-  value: string,
-  label: Category
-}
 
 @Component({
   selector: 'app-products',
@@ -51,15 +46,10 @@ export class Products implements OnInit {
   readonly h4 = hlmH4
   readonly p = hlmP
   readonly products = signal<Product[]>([]);
-  public portal: any;
-  //Criei para usar o select, a lib de components pede
-  public readonly categories: SelectCategoriesType[] = [
-    { label: 'Geral', value: 'geral' },
-    { label: 'Futebol', value: 'futebol' },
-    { label: 'Tênis', value: 'tenis' },
-    { label: 'Corrida', value: 'corrida' },
-    { label: 'Basquete', value: 'basquete' },
-  ];
+
+  public readonly categories = categories;
+
+  //Necessário para o spartan-ui, peguei das docs deles :)
   public readonly itemToString = (value: string) => this.categories.find((categories) => categories.value === value)?.label || '';
 
   constructor() { }
@@ -108,7 +98,6 @@ export class Products implements OnInit {
         })
         setTimeout(() => window.location.reload(), 1500)
       })
-
     }
   }
 

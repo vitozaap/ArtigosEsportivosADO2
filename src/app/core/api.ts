@@ -1,1 +1,1 @@
-export const apiUrl = "http://localhost:3000/products"
+export const apiUrl = "http://localhost:3000"

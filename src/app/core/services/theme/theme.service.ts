@@ -1,5 +1,5 @@
 import { effect, Injectable, signal } from '@angular/core';
-
+// CÓDIGO VEM DO SPARTAN UI
 export type Theme = 'light' | 'dark';
 
 const STORAGE_KEY = 'theme';
