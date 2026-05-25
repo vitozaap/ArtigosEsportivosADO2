@@ -28,7 +28,7 @@ import { Product } from '../core/services/products/types';
 export class Shop implements OnInit {
   private readonly productsService = inject(ProductsService);
 
-  readonly h3 = hlmH3;
+
   readonly h4 = hlmH4;
   readonly p = hlmP;
 

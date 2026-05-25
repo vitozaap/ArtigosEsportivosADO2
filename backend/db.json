@@ -1,26 +1,5 @@
 {
-  "products": [
-    {
-      "brand": "Nike",
-      "category": "futebol",
-      "description": "Bola de futebol mt daora da nike, compra ai.",
-      "name": "Bola de futebol",
-      "price": 99,
-      "stock": 10,
-      "userId": 1,
-      "id": "bWWw2OAkanI"
-    },
-    {
-      "brand": "Decathlon",
-      "category": "tenis",
-      "description": "Bola de Tênis mt legal da decathlon. Pode comprar que é sucesso!",
-      "name": "Bola de Tênis",
-      "price": 59.99,
-      "stock": 20,
-      "userId": 1,
-      "id": "fK_8zYsR5TM"
-    }
-  ],
+  "products": [],
   "users": [
     {
       "email": "example@user.com",
