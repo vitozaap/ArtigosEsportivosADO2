@@ -1,11 +1,9 @@
 import { inject, Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 import { User } from "./types";
 import { STORAGE_KEY } from "./storage-key";
-import { AuthService } from "../auth/auth.service";
-import { HttpClient } from "@angular/common/http";
 import { apiUrl } from "../../api";
-import { Observable } from "rxjs";
-
 
 
 @Injectable({
@@ -15,17 +13,16 @@ import { Observable } from "rxjs";
 //Para contexto, precisei do localStorage para que eu pudesse garantir que o usuário está logado, como se fosse "cookies", nao apenas so buscando no servidor.
 export class UserService {
     private readonly httpClient = inject(HttpClient)
+
     //Altera o usuário no LocalStorage, com base na KEY setada na raiz desse arquivo
     changeUser(user: User) {
         return localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
     }
 
-    //Pega do localStorage o usuário "logado"
-    getUser(): Observable<User[]> {
-        console.log(`${apiUrl}/users`)
+    //Busca a lista de usuários cadastrados no json-server
+    getUsers(): Observable<User[]> {
         return this.httpClient.get<User[]>(`${apiUrl}/users`)
     }
-
 
     //Deleta a KEY do localStorage
     deleteUser() {

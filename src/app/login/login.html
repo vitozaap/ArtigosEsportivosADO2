@@ -1,9 +1,9 @@
 <div class="min-w-dvw min-h-dvh flex border items-center justify-center">
-  <section class="w-full max-w-sm" hlmCard>
-    <div hlmCardHeader>
+  <hlm-card class="w-full max-w-sm">
+    <hlm-card-header>
       <h3 hlmCardTitle>Fazer login na PISTA</h3>
       <p hlmCardDescription>Preencha os campos para fazer login na PISTA.</p>
-    </div>
+    </hlm-card-header>
 
     <div hlmCardContent>
       <form [formGroup]="form" id="login" (ngSubmit)="onSubmit()">
@@ -33,8 +33,8 @@
       </form>
     </div>
 
-    <div hlmCardFooter class="flex-col gap-2">
+    <hlm-card-footer class="flex-col gap-2">
       <button hlmBtn type="submit" form="login" class="w-full">Entrar agora</button>
-    </div>
-  </section>
+    </hlm-card-footer>
+  </hlm-card>
 </div>

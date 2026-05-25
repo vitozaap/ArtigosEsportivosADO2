@@ -1,15 +1,15 @@
 # Roteiro de Apresentação — Projeto PISTA
 
-E-commerce de artigos esportivos construído em **Angular 21** + **spartan-ng (Helm UI)** + **Tailwind CSS v4**. Persistência via **json-server** (REST mock) e estado de sessão em **localStorage**.
+E-commerce de artigos esportivos construído em **Angular 21** + **spartan-ui (Helm UI)** + **Tailwind CSS v4**. Persistência via **json-server** (REST mock) e estado de sessão em **localStorage**.
 
 ## Distribuição dos apresentadores
 
 | # | Apresentador | Página | Papel |
 |---|--------------|--------|-------|
-| 1 | Pessoa A | Login | Lógica (formulário, autenticação, serviços) |
-| 2 | Pessoa B | Login | Design e componentes spartan-ng |
+| 1 | Ricardo | Login | Lógica (formulário, autenticação, serviços) |
+| 2 | Pessoa B | Login | Design e componentes spartan-ui |
 | 3 | Pessoa C | Catálogo | Lógica (signals, computed, filtro) |
-| 4 | Pessoa D | Catálogo | Design e componentes spartan-ng |
+| 4 | Pessoa D | Catálogo | Design e componentes spartan-ui |
 | 5 | Pessoa E | Dialog de Informações do Produto | Funcionamento completo |
 
 > Dica: cada apresentador deve abrir o arquivo `.ts` ou `.html` correspondente no VSCode antes de começar.
@@ -19,10 +19,10 @@ E-commerce de artigos esportivos construído em **Angular 21** + **spartan-ng (H
 ## Visão geral da arquitetura (intro do grupo, ~1 min)
 
 - **Roteamento** em `src/app/app.routes.ts` define quatro rotas: `''` (App raiz), `/login`, `/shop` (catálogo) e `/admin/products` (gestão).
-- **Guards** (`AuthGuard`, `AdminAuthGuard`) protegem rotas que exigem login ou perfil admin.
+- **Guards** (`AuthGuard`, `AdminAuthGuard`) Um extra para proteger rotas que exigem login ou perfil admin.
 - **Services injetáveis** (`UserService`, `AuthService`, `ProductsService`) concentram a lógica de negócio fora dos componentes.
 - **Standalone components** — todo componente declara seus próprios `imports`; não usamos `NgModule`.
-- **spartan-ng (Helm)** entrega componentes acessíveis sem estilizar pesado — usamos diretivas como `hlmBtn`, `hlmInput`, `hlmCard` aplicadas diretamente nos elementos HTML.
+- **spartan-ui (Helm)** entrega componentes acessíveis sem estilizar pesado — usamos diretivas como `hlmBtn`, `hlmInput`, `hlmCard` aplicadas diretamente nos elementos HTML.
 
 ---
 
@@ -33,7 +33,7 @@ E-commerce de artigos esportivos construído em **Angular 21** + **spartan-ng (H
 
 ---
 
-## 👤 Pessoa A — Lógica do Login (~3 min)
+## 👤 Ricardo — Lógica do Login (~3 min)
 
 ### Roteiro de fala
 
@@ -47,8 +47,8 @@ private readonly router = inject(Router)
 private readonly authService = inject(AuthService)
 ```
 
-- Usamos a função `inject()` do Angular (alternativa moderna ao construtor) para obter os três serviços.
-- **`UserService`** salva/lê o usuário no `localStorage`.
+- Usamos a função `inject()` do Angular para injetar os três serviços que precisamos para fazer o login funcionar.
+- **`UserService`** salva/lê o usuário no `localStorage`, mas buscando se existe o usuário no servidor do json-serber.
 - **`AuthService`** verifica se o usuário já está logado.
 - **`Router`** faz a navegação programática entre páginas.
 
@@ -62,7 +62,7 @@ constructor() {
 }
 ```
 
-- Se o usuário já estiver logado (tem dados válidos no localStorage), ele é redirecionado direto pro `/shop` sem precisar logar de novo.
+- Se o usuário já estiver logado (tem dados no localStorage), ele é redirecionado direto pro `/shop` sem precisar logar de novo, funciona igual ao ngOnInit explicado em sala.
 
 #### 3. Reactive Forms (linhas 28–31)
 
@@ -80,37 +80,42 @@ form = new FormGroup({
   - `Validators.minLength(5)` — senha mínima de 5 caracteres
 - O Angular bloqueia o submit enquanto `form.valid` for `false`.
 
-#### 4. Submissão (`onSubmit`, linhas 33–60)
+#### 4. Submissão (`onSubmit`, linhas 34–52)
 
 ```ts
-if (this.form.value.email == admin.email && this.form.value.password == admin.password) {
-  this.userService.changeUser({ email: ..., password: ... })
-  toast.success("Logado como admin!", { ... })
-  setTimeout(() => this.router.navigate(["/shop"]), 1000)
+onSubmit() {
+  if (!this.form.valid) {
+    return
+  }
+
+  this.userService.getUsers().subscribe((users) => {
+    const userExists = users.find(
+      (user) => user.email === this.form.value.email && user.password === this.form.value.password
+    )
+
+    if (userExists) {
+      this.userService.changeUser({ email: userExists.email, password: userExists.password })
+      this.router.navigate(["/shop"])
+    } else {
+      toast.info("Usuário não encontrado")
+    }
+  })
 }
 ```
 
-- Comparamos as credenciais com duas constantes em `core/users.ts` (`admin` e `user` — usuários "mockados" para a demonstração).
-- Se bate com `admin` → salva como admin no localStorage e mostra toast verde.
-- Se bate com `user` → salva como usuário comum.
-- Caso contrário → toast de erro "Usuário não encontrado".
-- O `setTimeout` de 1 segundo deixa o toast aparecer antes da navegação.
+- Se o form estiver inválido, ja invalida o fluxo de login.
+- Chamamos `userService.getUsers()` — método que faz um `HttpClient.get` no endpoint `/users` do **json-server**.
+- O método `.subscribe()` recebe o array/lista de usuários cadastrados quando a resposta chega.
+- Método de array `find()` procura um usuário que bata **tanto email quanto senha** com o formulário.
+- Se encontrou → grava no `localStorage` via `changeUser` e navega pra `/shop`.
+- Se não encontrou → toast informativo "Usuário não encontrado".
+- A diferenciação entre admin e usuário acontece **depois**, na função do Serviço de Auth (Victor que fez) `AuthService.isAdmin()`, comparando o email salvo no localStorage com o admin escrito em core/users.ts.
 
-### ⚠️ Pontos difíceis pra iniciantes — explique com calma
-
-| Conceito | Por que é confuso | Como explicar |
-|----------|-------------------|---------------|
-| `inject()` vs construtor | Iniciantes aprendem injeção via parâmetros de construtor | É o jeito novo (Angular 14+), mais flexível e funciona até fora de classes |
-| `FormGroup`/`FormControl` | Não é HTML puro nem template-driven | É **Reactive Forms**: o estado do form vive no `.ts`, não no `.html` |
-| `localStorage` em vez de cookies | Diferente de sessões tradicionais | Funciona só no navegador, sobrevive ao refresh, mas não é seguro pra dados sensíveis (ok pra protótipo) |
-
----
-
-## 🎨 Pessoa B — Design e componentes spartan-ng do Login (~3 min)
+## 🎨 Pessoa B — Design e componentes spartan-ui do Login (~3 min)
 
 ### Roteiro de fala
 
-> "Todo o visual do login é construído com componentes do spartan-ng, que é uma biblioteca de UI inspirada no shadcn/ui. Em vez de criar `<div>` estilizadas manualmente, usamos diretivas como `hlmCard` e `hlmBtn` que já trazem o design pronto. Bem semelhante ao passado na aula 10, sobre o material design do google "
+> "Todo o visual do login é construído com componentes do spartan-ui, que é uma biblioteca de UI. Em vez de criar `<div>` estilizadas manualmente, usamos diretivas como `hlmCard` e `hlmBtn` que já trazem o design pronto. Bem semelhante ao passado na aula 10, sobre o material design do google "
 
 #### 1. Imports do componente (`login.ts`, linha 14)
 
@@ -128,9 +133,9 @@ imports: [HlmButtonImports, HlmCardImports, HlmInputImports, HlmLabelImports, Ro
   <section class="w-full max-w-sm" hlmCard>
 ```
 
-- `min-h-dvh` / `min-w-dvw` ocupam **100% da viewport** (Tailwind v4).
+- `min-h-dvh` / `min-w-dvw` ocupam **100% da tela** (Tailwind CSS).
 - `flex items-center justify-center` centraliza o card vertical e horizontalmente.
-- A diretiva **`hlmCard`** aplicada na `<section>` transforma ela em um cartão com bordas, sombra e padding já estilizados.
+- A diretiva **`hlmCard`** aplicada na tag `<section>` transforma ela em um card com bordas, sombra e padding já estilizados pelo spartan-ui.
 
 #### 3. Estrutura do card (linhas 3–39)
 
@@ -168,21 +173,12 @@ imports: [HlmButtonImports, HlmCardImports, HlmInputImports, HlmLabelImports, Ro
 - `hlmInput` estiliza o input (borda, padding, focus ring).
 - `formControlName="email"` amarra o campo ao `FormControl` correspondente.
 
-#### 5. Toasts (em `app.ts` e disparados de `login.ts`)
 
-```ts
-toast.success("Logado como admin!", { description: ... })
-```
-
-- O `<hlm-toaster />` está no `App` raiz (`app.ts`), posicionado em `bottom-center`.
-- Qualquer componente do app pode disparar toasts importando `toast` de `@spartan-ng/brain/sonner`.
-
-### ⚠️ Pontos difíceis pra iniciantes
+### Pontos difíceis para explicar
 
 | Conceito | Como explicar |
 |----------|---------------|
-| Por que `hlmCard` é diretiva e não componente? | Aplicar como atributo em qualquer elemento (`<section>`, `<div>`) — é mais flexível que `<hlm-card>` |
-| Tailwind utility classes | Em vez de CSS separado, classes como `flex items-center` já trazem o estilo direto no HTML |
+| Tailwind CSS | Em vez de CSS separado, classes como `flex items-center` já trazem o estilo direto no HTML |
 | `form="login"` no botão | Atributo **HTML nativo** (não Angular) — liga o botão a um `<form id="login">` em qualquer lugar do DOM |
 
 ---
@@ -198,7 +194,7 @@ toast.success("Logado como admin!", { description: ... })
 
 ### Roteiro de fala
 
-> "O catálogo lista todos os produtos cadastrados no backend. A reatividade é construída com **Signals**, que é a nova forma do Angular gerenciar estado de forma performática."
+> "O catálogo lista todos os produtos cadastrados no backend. A reatividade é construída com **Signals** do angular"
 
 #### 1. Signal — o coração da reatividade (linha 36)
 
@@ -206,7 +202,7 @@ toast.success("Logado como admin!", { description: ... })
 readonly products = signal<Product[]>([]);
 ```
 
-- **`signal<T>(valorInicial)`** cria uma variável "reativa": quando ela muda, qualquer template que a usa re-renderiza **só essa parte**.
+- **`signal<Product[]>(valorInicial)`** cria uma variável "reativa": quando ela muda, qualquer template que a usa re-renderiza **só essa parte**.
 - Pra **ler** o valor: `products()` (com parênteses, como uma função).
 - Pra **mudar**: `products.set(novoArray)` ou `products.update(fn)`.
 - Comparado ao `*ngFor` clássico, é mais rápido porque o Angular sabe exatamente o que mudou.
@@ -221,9 +217,9 @@ ngOnInit(): void {
 }
 ```
 
-- **`OnInit`** é um **lifecycle hook**: o método `ngOnInit` roda **uma vez**, logo após o componente ser criado.
-- `productsService.getProducts()` retorna um **Observable** (do RxJS) — uma "promise contínua".
-- O `.subscribe()` recebe o array de produtos quando a requisição HTTP termina, e nós o jogamos no signal `products`.
+- O método `ngOnInit` roda **uma vez**, logo após o componente ser criado.
+- `productsService.getProducts()` retorna um **Observable** (do RxJS) — uma "promise contínua" para que possamos pegar os dados dos produtos da API.
+- O método `subscribe()` recebe a lista de produtos quando a requisição HTTP termina, e nós o jogamos no signal `products`.
 
 #### 3. Service e tipo compartilhados (linhas 11–12)
 
@@ -235,7 +231,7 @@ import { Product } from '../core/services/products/types';
 - **`ProductsService`** é a mesma classe injetável usada pelo admin — concentra todas as chamadas HTTP num único lugar.
 - `Product` é a **interface TypeScript** que define o formato dos dados (`id`, `name`, `brand`, `category`, `price`, `stock`, `description`).
 
-#### 4. Helper de exibição (linhas 44–48)
+#### 4. Melhor exibição de categorias (linhas 44–48)
 
 ```ts
 protected formatCategory(category: Product['category']): string {
@@ -246,7 +242,7 @@ protected formatCategory(category: Product['category']): string {
 ```
 
 - Recebe a categoria crua do produto (ex: `"futebol"`) e retorna formatada (`"Futebol"`).
-- Usada tanto no card quanto no dialog de informações pra padronizar a apresentação.
+- Usada tanto no card quanto no dialog de informações pra padronizar a apresentação em maiúsculo no inicio.
 
 ### ⚠️ Pontos difíceis pra iniciantes
 
@@ -259,11 +255,11 @@ protected formatCategory(category: Product['category']): string {
 
 ---
 
-## 🎨 Pessoa D — Design e componentes spartan-ng do Catálogo (~3 min)
+## 🎨 Pessoa D — Design e componentes spartan-ui do Catálogo (~3 min)
 
 ### Roteiro de fala
 
-> "O catálogo monta uma interface limpa: um cabeçalho com contador, grid responsivo de cards e estado vazio. Todos os componentes vêm do spartan-ng e se ajustam automaticamente ao tema claro/escuro."
+> "O catálogo monta uma interface limpa: um cabeçalho com contador, grade de cards e um estado de vazio/sem produtos. Todos os componentes vêm do spartan-ui e se ajustam automaticamente ao tema claro/escuro."
 
 #### 1. Layout geral (`shop.html`, linhas 1–10)
 
@@ -281,14 +277,14 @@ protected formatCategory(category: Product['category']): string {
 ```
 
 - `<app-header />` reusa o componente de cabeçalho global.
-- `px-32 py-6` dá padding lateral generoso (32 * 4px = 128px) — combina com a página admin.
-- `[class]="h3"` aplica a string de classes Tailwind retornada por `hlmH3` (vem de `@spartan-ng/helm/typography`) — padronização tipográfica consistente.
-- `{{ products().length }}` mostra o contador, que **atualiza sozinho** quando o signal `products` muda.
+- `px e py` dá espaçamento lateral, igual usado na página de admin.
+- `[class]="h3"` aplica a string de classes Tailwind retornada por `hlmH3` (vem de `@spartan-ui/helm/typography`) — Gerando padronização de textos.
+- `{{ products().length }}` mostra o contador de produtos, pegando o tamanho da lista de produtos, que **atualiza sozinho** quando o signal `products` muda.
 
 #### 2. Grid responsivo de cards (linhas 25–87)
 
 ```html
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<div class="grid grid-cols-3 gap-4">
   @for (product of products(); track product.id) {
     <hlm-card class="flex flex-col">
       <hlm-card-header class="gap-2">
@@ -310,46 +306,9 @@ protected formatCategory(category: Product['category']): string {
   }
 </div>
 ```
-
-- **Grid responsivo Tailwind**:
-  - Mobile (`grid-cols-1`): 1 coluna
-  - Tablet (`sm:`): 2 colunas
-  - Desktop (`lg:`): 3 colunas
-- **`@for`** é a nova sintaxe de loop do Angular 17+ (substitui `*ngFor`).
-- `track product.id` ajuda o Angular a saber quem mudou e evitar re-renderizar tudo — ganho de performance.
-- Cada card usa a mesma anatomia do Login: `hlm-card-header`, `hlmCardContent`, `hlmCardFooter`.
-- Acima do nome, mostramos a categoria em **uppercase + muted-foreground** (cor desbotada do tema).
-
-#### 3. Empty state (linhas 12–23)
-
-```html
-@if (products().length === 0) {
-  <hlm-empty>
-    <hlm-empty-header>
-      <hlm-empty-media variant="icon">
-        <ng-icon name="lucideSquircleDashed" />
-      </hlm-empty-media>
-      <div hlmEmptyTitle>Nenhum produto disponível</div>
-      <div hlmEmptyDescription>
-        Os produtos cadastrados aparecerão aqui.
-      </div>
-    </hlm-empty-header>
-  </hlm-empty>
-}
-```
-
-- **`hlm-empty`** é um componente pronto pra "estado vazio" — quando não há nada pra mostrar.
-- Mantém consistência visual com o resto do app (já é usado na página admin quando não há produtos).
-- O ícone `lucideSquircleDashed` vem da biblioteca **Lucide** via `@ng-icons/lucide`.
-
-### ⚠️ Pontos difíceis pra iniciantes
-
-| Conceito | Como explicar |
-|----------|---------------|
-| `@for` e `@if` (novo) | Substitui `*ngFor` e `*ngIf` do Angular antigo — mais simples e performático |
-| `track` no `@for` | Identificador único pra cada item — Angular usa pra saber quem mudou e evitar re-renderizar tudo |
-| Classes responsivas Tailwind | `sm:`, `lg:` são **breakpoints**: estilo só aplica se a tela passar daquele tamanho |
-| `text-muted-foreground` | Cor "auxiliar" do tema — automaticamente clara/escura conforme tema atual |
+- Usamos Grid para definir a grade de amostragem de produtos
+- `@for` para fazer um loop nos produtos e conseguir exibi-los na página.
+- Cada card usa a mesma anatomia do card na tela de Login: `hlm-card-header`, `hlm-card-content`, `hlm-card-footer`.
 
 ---
 
@@ -363,7 +322,7 @@ protected formatCategory(category: Product['category']): string {
 
 ### Roteiro de fala
 
-> "Quando o usuário clica em 'Ver' num card do catálogo, abre um modal com as informações detalhadas do produto. O spartan-ng resolve toda a parte chata: foco, fechar com ESC, overlay escurecido, animações."
+> "Quando o usuário clica em 'Ver' num card do catálogo, abre um dialog com as informações detalhadas do produto. O spartan-ui resolve toda a parte chata de lógica do dialog, então foi bem simples fazer, seguindo sempre a documentação da biblioteca."
 
 #### 1. Estrutura básica (linhas 80–90)
 
@@ -383,9 +342,7 @@ protected formatCategory(category: Product['category']): string {
 </hlm-dialog>
 ```
 
-- **`<hlm-dialog>`** é o "container lógico" do dialog — não renderiza nada visível sozinho.
-- **`hlmDialogTrigger`** marca qualquer elemento (no caso, o botão "Ver") como o gatilho que abre o modal.
-- O texto "Ver" + ícone `lucideArrowRight` formam a seta "Ver →" do design.
+- Botão com `hlmDialogTrigger` que faz o dialog abrir, sem isso, o spartan-ui não sabe quando abrir
 
 #### 2. Conteúdo do modal com `*hlmDialogPortal` (linhas 92–121)
 
@@ -420,47 +377,35 @@ protected formatCategory(category: Product['category']): string {
 </hlm-dialog-content>
 ```
 
-- **`*hlmDialogPortal`** é uma **structural directive** (parecida com `*ngIf`) — o asterisco indica isso.
-- Ela faz o conteúdo do dialog ser **renderizado em outro lugar do DOM** (no fim do `<body>`, fora da hierarquia do componente). Isso evita problemas de `z-index` e overflow.
-- O `let ctx` captura o "contexto" do dialog — dá acesso a métodos como `ctx.close()` se precisássemos fechar programaticamente.
 
 #### 3. Header, body e footer
 
 | Diretiva | O que faz |
 |----------|-----------|
-| `<hlm-dialog-header>` | Container do topo (título + descrição) |
+| `<hlm-dialog-header>` | Parte do topo (título + descrição) |
 | `hlmDialogTitle` | Aplica tipografia de título (h3 estilizado) |
 | `hlmDialogDescription` | Texto secundário muted abaixo do título |
-| `<hlm-dialog-footer>` | Container das ações no rodapé |
+| `<hlm-dialog-footer>` | parte das ações no rodapé |
 | `hlmDialogClose` | Marca o botão "Fechar" — ao clicar, o dialog fecha sozinho |
 
-#### 4. Conteúdo dinâmico via interpolação
-
-- `{{ product.name }}`, `{{ product.price }}`, `{{ product.description }}` — interpolação clássica.
-- `formatCategory(product.category)` chama um método que capitaliza a categoria (`"futebol"` → `"Futebol"`).
-- O modal recebe **automaticamente** o `product` correto porque está **dentro do `@for`** — cada card tem o seu próprio modal escopado.
-
-#### 5. Por que esse dialog é interessante?
+#### 4. Por que esse dialog é interessante?
 
 Mostre na apresentação que:
-1. **Não escrevemos** nenhuma lógica de "abrir/fechar" em TypeScript — o spartan-ng cuida disso.
-2. **Acessibilidade** vem de graça: tecla ESC fecha, foco fica preso dentro do modal, leitor de tela lê o título.
-3. **Reutilização**: o mesmo padrão de `hlm-dialog` é usado na página admin pra criar/editar produtos — é um componente do nosso "design system".
+1. **Não escrevemos** nenhuma lógica de "abrir/fechar" em TypeScript — o spartan-ui cuida disso.
+2. **Reutilização**: o mesmo padrão de `hlm-dialog` é usado na página admin pra criar/editar produtos — é um componente do nosso "design system".
 
-### ⚠️ Pontos difíceis pra iniciantes
+### Pontos difíceis para explicar
 
 | Conceito | Como explicar |
 |----------|---------------|
-| Structural directive (`*hlmDialogPortal`) | O asterisco "expande" pra um `<ng-template>` — Angular renderiza o conteúdo só quando o dialog abre |
-| `let ctx` no template | Sintaxe pra capturar variáveis do contexto da diretiva (similar ao `let item of items` no `@for`) |
-| Modal dentro de `@for` | Cada produto tem seu próprio `<hlm-dialog>` — não é um único modal que muda de conteúdo, são N modais independentes |
+| Modal dentro de `@for` | Cada produto tem seu próprio `<hlm-dialog>` — não é um único modal que muda de conteúdo, são vários modais independentes |
 | Portal | Renderiza HTML "fora" do componente pra evitar bugs visuais — conceito comum em libs de UI (React, Vue também têm) |
 
 ---
 
-# 🧩 Apêndice — Glossário rápido de Angular
+# Glossário das Aulas Passadas
 
-Pra ajudar a responder perguntas do professor:
+Pra ajudar a responder sobre as aulas do pro:
 
 | Termo | Definição curta |
 |-------|-----------------|
@@ -486,7 +431,7 @@ Pra ajudar a responder perguntas do professor:
 | Tempo | Quem | O quê |
 |-------|------|-------|
 | 0:00–1:00 | Todos | Intro + arquitetura geral |
-| 1:00–4:00 | Pessoa A | Login — lógica |
+| 1:00–4:00 | Ricardo | Login — lógica |
 | 4:00–7:00 | Pessoa B | Login — design |
 | 7:00–10:00 | Pessoa C | Catálogo — lógica |
 | 10:00–13:00 | Pessoa D | Catálogo — design |
@@ -494,5 +439,3 @@ Pra ajudar a responder perguntas do professor:
 | 16:00–17:00 | Todos | Demo final + perguntas |
 
 ---
-
-**Boa apresentação! 🚀**

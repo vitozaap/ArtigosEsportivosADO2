@@ -14,7 +14,7 @@ export class ProductsService {
 
     //Todas as funções aqui chamam o httpClient que chama a API em seus métodos corretos.
     getProducts(): Observable<Product[]> {
-        return this.httpClient.get<Product[]>(apiUrl)
+        return this.httpClient.get<Product[]>(`${apiUrl}/products`)
     }
 
     editProductById(id: string, product: Product): Observable<Product | undefined> {

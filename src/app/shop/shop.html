@@ -9,6 +9,8 @@
       </p>
     </div>
 
+
+    <!-- Verificar se nao tem produtos, se nao tiver, então renderiza um componente que demonstra estado vazio -->
     @if (products().length === 0) {
       <hlm-empty>
         <hlm-empty-header>
@@ -22,7 +24,7 @@
         </hlm-empty-header>
       </hlm-empty>
     } @else {
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="grid grid-cols-3 gap-4">
         @for (product of products(); track product.id) {
           <hlm-card class="flex flex-col">
             <hlm-card-header class="gap-2">

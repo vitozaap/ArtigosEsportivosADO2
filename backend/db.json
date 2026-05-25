@@ -2,33 +2,35 @@
   "products": [
     {
       "brand": "Nike",
-      "category": "corrida",
-      "description": "123",
-      "name": "Teste",
-      "price": 91,
-      "stock": 123,
-      "userId": 1,
-      "id": "GOaT5zL8-Bc"
-    },
-    {
-      "brand": "Pancada Prime",
-      "category": "geral",
-      "description": "Phelipyz aura man da silva menezes VINIIIICIUS OOOHHH ",
-      "name": "Phelipyz",
+      "category": "futebol",
+      "description": "Bola de futebol mt daora da nike, compra ai.",
+      "name": "Bola de futebol",
       "price": 99,
-      "stock": 1,
+      "stock": 10,
       "userId": 1,
       "id": "bWWw2OAkanI"
+    },
+    {
+      "brand": "Decathlon",
+      "category": "tenis",
+      "description": "Bola de Tênis mt legal da decathlon. Pode comprar que é sucesso!",
+      "name": "Bola de Tênis",
+      "price": 59.99,
+      "stock": 20,
+      "userId": 1,
+      "id": "fK_8zYsR5TM"
     }
   ],
   "users": [
     {
       "email": "example@user.com",
-      "password": "12345"
+      "password": "12345",
+      "id": "v6XItC02kg8"
     },
     {
       "email": "example@admin.com",
-      "password": "admin"
+      "password": "admin",
+      "id": "u_04cGohbuw"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
