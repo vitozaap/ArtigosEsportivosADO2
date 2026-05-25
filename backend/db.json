@@ -1,5 +1,16 @@
 {
-  "products": [],
+  "products": [
+    {
+      "brand": "Nike",
+      "category": "futebol",
+      "description": "Bola de Futebol da Decathlon, pode comprar que é sucesso!",
+      "name": "Bola de Futebol",
+      "price": 99,
+      "stock": 99,
+      "userId": 1,
+      "id": "WF3m0YJW9d4"
+    }
+  ],
   "users": [
     {
       "email": "example@user.com",

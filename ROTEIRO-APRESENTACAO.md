@@ -6,17 +6,17 @@ E-commerce de artigos esportivos construído em **Angular 21** + **spartan-ui (H
 
 | # | Apresentador | Página | Papel |
 |---|--------------|--------|-------|
-| 1 | Ricardo | Login | Lógica (formulário, autenticação, serviços) |
-| 2 | Pessoa B | Login | Design e componentes spartan-ui |
-| 3 | Pessoa C | Catálogo | Lógica (signals, computed, filtro) |
-| 4 | Pessoa D | Catálogo | Design e componentes spartan-ui |
-| 5 | Pessoa E | Dialog de Informações do Produto | Funcionamento completo |
+| 1 | Marcelo | Login | Lógica (formulário, autenticação, serviços) |
+| 2 | Orlando | Login | Design e componentes spartan-ui |
+| 3 | Leandro | Catálogo | Lógica (signals, computed) |
+| 4 | Ricardo | Catálogo | Design e componentes spartan-ui |
+| 5 | Victor | Dialog de Informações do Produto | Funcionamento completo |
 
 > Dica: cada apresentador deve abrir o arquivo `.ts` ou `.html` correspondente no VSCode antes de começar.
 
 ---
 
-## Visão geral da arquitetura (intro do grupo, ~1 min)
+## Visão geral da arquitetura (intro do grupo)
 
 - **Roteamento** em `src/app/app.routes.ts` define quatro rotas: `''` (App raiz), `/login`, `/shop` (catálogo) e `/admin/products` (gestão).
 - **Guards** (`AuthGuard`, `AdminAuthGuard`) Um extra para proteger rotas que exigem login ou perfil admin.
@@ -33,7 +33,7 @@ E-commerce de artigos esportivos construído em **Angular 21** + **spartan-ui (H
 
 ---
 
-## 👤 Ricardo — Lógica do Login (~3 min)
+## 👤 Marcelo — Lógica do Login
 
 ### Roteiro de fala
 
@@ -111,7 +111,7 @@ onSubmit() {
 - Se não encontrou → toast informativo "Usuário não encontrado".
 - A diferenciação entre admin e usuário acontece **depois**, na função do Serviço de Auth (Victor que fez) `AuthService.isAdmin()`, comparando o email salvo no localStorage com o admin escrito em core/users.ts.
 
-## 🎨 Pessoa B — Design e componentes spartan-ui do Login (~3 min)
+## 🎨 Orlando — Design e componentes spartan-ui do Login
 
 ### Roteiro de fala
 
@@ -190,7 +190,7 @@ imports: [HlmButtonImports, HlmCardImports, HlmInputImports, HlmLabelImports, Ro
 
 ---
 
-## 👤 Pessoa C — Lógica do Catálogo (~3 min)
+## 👤 Leandro — Lógica do Catálogo
 
 ### Roteiro de fala
 
@@ -205,7 +205,6 @@ readonly products = signal<Product[]>([]);
 - **`signal<Product[]>(valorInicial)`** cria uma variável "reativa": quando ela muda, qualquer template que a usa re-renderiza **só essa parte**.
 - Pra **ler** o valor: `products()` (com parênteses, como uma função).
 - Pra **mudar**: `products.set(novoArray)` ou `products.update(fn)`.
-- Comparado ao `*ngFor` clássico, é mais rápido porque o Angular sabe exatamente o que mudou.
 
 #### 2. Carregando produtos do backend (linhas 38–42)
 
@@ -255,7 +254,7 @@ protected formatCategory(category: Product['category']): string {
 
 ---
 
-## 🎨 Pessoa D — Design e componentes spartan-ui do Catálogo (~3 min)
+## 🎨 Ricardo — Design e componentes spartan-ui do Catálogo
 
 ### Roteiro de fala
 
@@ -318,8 +317,7 @@ protected formatCategory(category: Product['category']): string {
 
 ---
 
-## 👤
- Pessoa E — Dialog (~3 min)
+## 👤 Victor — Dialog
 
 ### Roteiro de fala
 
@@ -432,11 +430,11 @@ Pra ajudar a responder sobre as aulas do pro:
 | Tempo | Quem | O quê |
 |-------|------|-------|
 | 0:00–1:00 | Todos | Intro + arquitetura geral |
-| 1:00–4:00 | Ricardo | Login — lógica |
-| 4:00–7:00 | Pessoa B | Login — design |
-| 7:00–10:00 | Pessoa C | Catálogo — lógica |
-| 10:00–13:00 | Pessoa D | Catálogo — design |
-| 13:00–16:00 | Pessoa E | Dialog de informações |
+| 1:00–4:00 | Marcelo | Login — lógica |
+| 4:00–7:00 | Orlando | Login — design |
+| 7:00–10:00 | Leandro | Catálogo — lógica |
+| 10:00–13:00 | Ricardo | Catálogo — design |
+| 13:00–16:00 | Victor | Dialog de informações |
 | 16:00–17:00 | Todos | Demo final + perguntas |
 
 ---
