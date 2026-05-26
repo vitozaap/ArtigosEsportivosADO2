@@ -1,0 +1,92 @@
+<div class="w-full min-h-dvh flex flex-col">
+  <header class="w-full px-8 md:px-32 py-4 border-b flex items-center justify-between">
+    <h1 [class]="h3" class="mt-0!">PISTA</h1>
+    <div class="flex gap-2">
+      <button hlmBtn routerLink="/login" class="cursor-pointer">
+        Entrar agora
+        <ng-icon hlm size="sm" name="lucideArrowRight" />
+      </button>
+    </div>
+  </header>
+
+  <section class="w-full px-8 md:px-32 py-20 flex flex-col items-center text-center gap-6">
+    <span hlmBadge variant="secondary">Artigos esportivos para todos os times</span>
+    <h1 [class]="h1" class="max-w-3xl mt-0!">
+      Equipe-se para a sua próxima vitória
+    </h1>
+    <p [class]="lead" class="max-w-2xl mt-0!">
+      Na PISTA você encontra tudo para o seu esporte favorito: futebol, basquete,
+      corrida e muito mais. Marcas selecionadas, melhores preços e entrega rápida.
+    </p>
+    <div class="flex gap-3 mt-2">
+      <button hlmBtn size="lg" routerLink="/login" class="cursor-pointer">
+        Ver catálogo
+        <ng-icon hlm size="sm" name="lucideArrowRight" />
+      </button>
+      <button hlmBtn size="lg" variant="outline" routerLink="/login" class="cursor-pointer">
+        Criar conta
+      </button>
+    </div>
+  </section>
+
+  <section class="w-full px-8 md:px-32 py-12 flex flex-col gap-6">
+    <div class="flex flex-col gap-1 text-center">
+      <h3 [class]="h3" class="mt-0!">Categorias</h3>
+      <p class="text-sm text-muted-foreground">
+        Encontre os produtos certos para o seu esporte
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      @for (category of categories; track category.name) {
+        <hlm-card class="flex flex-col">
+          <hlm-card-header class="gap-2">
+            <h4 hlmCardTitle class="text-lg">{{ category.name }}</h4>
+            <p hlmCardDescription>{{ category.description }}</p>
+          </hlm-card-header>
+          <div hlmCardFooter>
+            <button
+              hlmBtn
+              variant="ghost"
+              size="sm"
+              routerLink="/login"
+              class="cursor-pointer w-full justify-between"
+            >
+              Explorar
+              <ng-icon hlm size="sm" name="lucideArrowRight" />
+            </button>
+          </div>
+        </hlm-card>
+      }
+    </div>
+  </section>
+
+  <section class="w-full px-8 md:px-32 py-12 bg-muted/30 flex flex-col gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      @for (feature of features; track feature.title) {
+        <div class="flex flex-col items-start gap-2">
+          <div class="p-2 border rounded-md bg-background">
+            <ng-icon hlm size="sm" [name]="feature.icon" />
+          </div>
+          <h4 class="font-semibold">{{ feature.title }}</h4>
+          <p class="text-sm text-muted-foreground">{{ feature.description }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="w-full px-8 md:px-32 py-20 flex flex-col items-center text-center gap-4">
+    <h3 [class]="h3" class="mt-0!">Pronto para começar?</h3>
+    <p class="text-sm text-muted-foreground max-w-md">
+      Faça login na PISTA e descubra os melhores artigos esportivos.
+    </p>
+    <button hlmBtn size="lg" routerLink="/login" class="cursor-pointer mt-2">
+      Acessar agora
+      <ng-icon hlm size="sm" name="lucideArrowRight" />
+    </button>
+  </section>
+
+  <footer class="w-full px-8 md:px-32 py-6 border-t flex items-center justify-between">
+    <p class="text-sm text-muted-foreground">© PISTA · Artigos esportivos</p>
+  </footer>
+</div>

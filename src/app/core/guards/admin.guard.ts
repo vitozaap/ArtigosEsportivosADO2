@@ -8,5 +8,8 @@ export const AdminAuthGuard: CanActivateFn = (
     state: RouterStateSnapshot
 ) => {
     const authService = inject(AuthService)
+    if(!authService.isAdmin()) {
+        
+    }
     return authService.isAdmin()
 }
