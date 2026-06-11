@@ -34,7 +34,10 @@ export class Shop implements OnInit {
 
   readonly products = signal<Product[]>([]);
 
+  // Roda SEMPRE que o componente é carregado
   ngOnInit(): void {
+
+    //Busca os produtos na API, e atualizar a lista de produtos
     this.productsService.getProducts().subscribe((products) => {
       this.products.set(products);
     });
