@@ -656,6 +656,158 @@ svg.icon-sm {
   color: var(--muted-foreground);
 }
 
+.h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1.1;
+}
+
+.h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+}
+
+.lead {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  color: var(--muted-foreground);
+}
+
+.badge-secondary {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+}
+
+.btn-lg {
+  height: 2.5rem;
+  padding: 0 1.5rem;
+}
+
+.landing-header {
+  width: 100%;
+  padding: 1rem 8rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.landing-hero {
+  width: 100%;
+  padding: 5rem 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+.landing-hero .h1 {
+  max-width: 48rem;
+}
+
+.landing-hero .lead {
+  max-width: 42rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.landing-section {
+  width: 100%;
+  padding: 3rem 8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.landing-section-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: center;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.category-card-btn {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.features-section {
+  background-color: color-mix(in oklab, var(--muted) 30%, transparent);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.feature-icon {
+  display: inline-flex;
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--background);
+}
+
+.feature-title {
+  font-weight: 600;
+}
+
+.landing-cta {
+  width: 100%;
+  padding: 5rem 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+}
+
+.landing-cta .text-sm {
+  max-width: 28rem;
+}
+
+.landing-cta .btn {
+  margin-top: 0.5rem;
+}
+
+.landing-footer {
+  width: 100%;
+  padding: 1.5rem 8rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .login-page {
   min-width: 100dvw;
   min-height: 100dvh;
