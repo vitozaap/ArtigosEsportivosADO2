@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PistaProject</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page page-admin">
+      <header class="header">
+        <div class="header-left">
+          <h1 class="h4">PISTA</h1>
+          <nav class="header-nav">
+            <a class="btn btn-ghost" href="shop.html">Ver Loja</a>
+            <a class="btn btn-ghost" href="admin-products.html">Produtos</a>
+          </nav>
+        </div>
+        <div class="header-right">
+          <a class="btn btn-ghost btn-icon-sm" href="#" aria-label="Ativar tema escuro">
+            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </a>
+          <div class="user-chip">
+            <span class="avatar">A</span>
+            <p>Admin</p>
+          </div>
+          <a class="btn btn-ghost btn-icon-sm" href="login.html" aria-label="Sair">
+            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+          </a>
+        </div>
+      </header>
+
+      <div class="page-header-row">
+        <div class="page-title-group">
+          <h4 class="h4">GestÃ£o de Produtos</h4>
+          <p class="text-sm text-muted">Adicione, edite ou remova produtos do catÃ¡logo.</p>
+        </div>
+        <div>
+          <a class="btn" href="#novo-produto">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+            Novo Produto
+          </a>
+        </div>
+      </div>
+
+      <div class="table-area">
+        <div class="table-container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Produto</th>
+                <th>ID</th>
+                <th>Categoria</th>
+                <th>Marca</th>
+                <th>Estoque</th>
+                <th>PreÃ§o</th>
+                <th class="text-end">AÃ§Ãµes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Bola de Futebol Society</td>
+                <td>e8f1</td>
+                <td>Futebol</td>
+                <td>Nike</td>
+                <td>23</td>
+                <td>R$ 149.9</td>
+                <td>
+                  <div class="row-actions">
+                    <a class="btn btn-ghost btn-icon-sm" href="#editar-1" aria-label="Editar">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                    </a>
+                    <a class="btn btn-destructive btn-icon-sm" href="#deletar-1" aria-label="Deletar">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>TÃªnis de Corrida Pegasus 40</td>
+                <td>a3c9</td>
+                <td>Corrida</td>
+                <td>Nike</td>
+                <td>12</td>
+                <td>R$ 899.9</td>
+                <td>
+                  <div class="row-actions">
+                    <a class="btn btn-ghost btn-icon-sm" href="#editar-2" aria-label="Editar">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                    </a>
+                    <a class="btn btn-destructive btn-icon-sm" href="#deletar-2" aria-label="Deletar">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Bola de Basquete NBA Authentic</td>
+                <td>b7d2</td>
+                <td>Basquete</td>
+                <td>Wilson</td>
+                <td>8</td>
+                <td>R$ 249.9</td>
+                <td>
+                  <div class="row-actions">
+                    <a class="btn btn-ghost btn-icon-sm" href="#editar-3" aria-label="Editar">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                    </a>
+                    <a class="btn btn-destructive btn-icon-sm" href="#deletar-3" aria-label="Deletar">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Raquete Pure Drive</td>
+                <td>f4a6</td>
+                <td>TÃªnis</td>
+                <td>Babolat</td>
+                <td>5</td>
+                <td>R$ 1299.9</td>
+                <td>
+                  <div class="row-actions">
+                    <a class="btn btn-ghost btn-icon-sm" href="#editar-4" aria-label="Editar">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                    </a>
+                    <a class="btn btn-destructive btn-icon-sm" href="#deletar-4" aria-label="Deletar">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Garrafa TÃ©rmica 1L</td>
+                <td>c1e8</td>
+                <td>Geral</td>
+                <td>Stanley</td>
+                <td>30</td>
+                <td>R$ 189.9</td>
+                <td>
+                  <div class="row-actions">
+                    <a class="btn btn-ghost btn-icon-sm" href="#editar-5" aria-label="Editar">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                    </a>
+                    <a class="btn btn-destructive btn-icon-sm" href="#deletar-5" aria-label="Deletar">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>Camisa de Treino Dri-FIT</td>
+                <td>d9b3</td>
+                <td>Futebol</td>
+                <td>Nike</td>
+                <td>17</td>
+                <td>R$ 119.9</td>
+                <td>
+                  <div class="row-actions">
+                    <a class="btn btn-ghost btn-icon-sm" href="#editar-6" aria-label="Editar">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                    </a>
+                    <a class="btn btn-destructive btn-icon-sm" href="#deletar-6" aria-label="Deletar">
+                      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-overlay" id="novo-produto">
+      <a class="dialog-backdrop" href="#" aria-label="Fechar"></a>
+      <div class="dialog">
+        <a class="dialog-close" href="#" aria-label="Fechar">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </a>
+        <div class="dialog-header">
+          <h3 class="dialog-title">Novo produto</h3>
+          <p class="dialog-description">
+            Crie um novo produto e clique <b>adicionar</b> quando finalizar.
+          </p>
+        </div>
+
+        <form class="form-grid">
+          <div class="field">
+            <label class="label" for="np-name">Nome do produto</label>
+            <input class="input" id="np-name" placeholder="Bola de futebol" />
+          </div>
+          <div class="field">
+            <label class="label" for="np-brand">Marca</label>
+            <input class="input" id="np-brand" placeholder="Nike" />
+          </div>
+          <div class="field">
+            <label class="label" for="np-price">PreÃ§o</label>
+            <div class="input-group">
+              <span class="input-group-addon">R$</span>
+              <input class="input" type="number" id="np-price" placeholder="0.00" />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label" for="np-stock">Estoque disponÃ­vel</label>
+            <input class="input" type="number" id="np-stock" placeholder="10" />
+          </div>
+          <div class="field">
+            <label class="label" for="np-description">DescriÃ§Ã£o</label>
+            <textarea class="textarea" id="np-description" placeholder="Bola de futebol legal bla bla bla..."></textarea>
+          </div>
+          <div class="field">
+            <label class="label" for="np-category">Categoria</label>
+            <select class="select" id="np-category">
+              <option value="" selected>Selecione uma categoria</option>
+              <option value="geral">Geral</option>
+              <option value="futebol">Futebol</option>
+              <option value="tenis">TÃªnis</option>
+              <option value="corrida">Corrida</option>
+              <option value="basquete">Basquete</option>
+            </select>
+          </div>
+        </form>
+
+        <div class="dialog-footer">
+          <a class="btn btn-outline" href="#">Cancelar</a>
+          <a class="btn" href="#">Adicionar</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-overlay" id="editar-1">
+      <a class="dialog-backdrop" href="#" aria-label="Fechar"></a>
+      <div class="dialog">
+        <a class="dialog-close" href="#" aria-label="Fechar">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </a>
+        <div class="dialog-header">
+          <h3 class="dialog-title">Editar produto: <b>Bola de Futebol Society</b></h3>
+          <p class="dialog-description">
+            Edite o produto e clique <b>salvar alteraÃ§Ãµes</b> quando finalizar.
+          </p>
+        </div>
+        <form class="form-grid">
+          <div class="field">
+            <label class="label">Nome do produto</label>
+            <input class="input" placeholder="Bola de Futebol Society" />
+          </div>
+          <div class="field">
+            <label class="label">Marca</label>
+            <input class="input" placeholder="Nike" />
+          </div>
+          <div class="field">
+            <label class="label">PreÃ§o</label>
+            <div class="input-group">
+              <span class="input-group-addon">R$</span>
+              <input class="input" type="number" placeholder="149.9" />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Estoque disponÃ­vel</label>
+            <input class="input" type="number" placeholder="23" />
+          </div>
+          <div class="field">
+            <label class="label">DescriÃ§Ã£o</label>
+            <textarea class="textarea" placeholder="Bola de futebol society com costura reforÃ§ada e Ã³tima durabilidade para campos de grama sintÃ©tica."></textarea>
+          </div>
+          <div class="field">
+            <label class="label">Categoria</label>
+            <select class="select">
+              <option value="futebol" selected>Futebol</option>
+              <option value="geral">Geral</option>
+              <option value="tenis">TÃªnis</option>
+              <option value="corrida">Corrida</option>
+              <option value="basquete">Basquete</option>
+            </select>
+          </div>
+        </form>
+        <div class="dialog-footer">
+          <a class="btn btn-outline" href="#">Cancelar</a>
+          <a class="btn" href="#">Salvar alteraÃ§Ãµes</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-overlay" id="editar-2">
+      <a class="dialog-backdrop" href="#" aria-label="Fechar"></a>
+      <div class="dialog">
+        <a class="dialog-close" href="#" aria-label="Fechar">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </a>
+        <div class="dialog-header">
+          <h3 class="dialog-title">Editar produto: <b>TÃªnis de Corrida Pegasus 40</b></h3>
+          <p class="dialog-description">
+            Edite o produto e clique <b>salvar alteraÃ§Ãµes</b> quando finalizar.
+          </p>
+        </div>
+        <form class="form-grid">
+          <div class="field">
+            <label class="label">Nome do produto</label>
+            <input class="input" placeholder="TÃªnis de Corrida Pegasus 40" />
+          </div>
+          <div class="field">
+            <label class="label">Marca</label>
+            <input class="input" placeholder="Nike" />
+          </div>
+          <div class="field">
+            <label class="label">PreÃ§o</label>
+            <div class="input-group">
+              <span class="input-group-addon">R$</span>
+              <input class="input" type="number" placeholder="899.9" />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Estoque disponÃ­vel</label>
+            <input class="input" type="number" placeholder="12" />
+          </div>
+          <div class="field">
+            <label class="label">DescriÃ§Ã£o</label>
+            <textarea class="textarea" placeholder="TÃªnis de corrida com amortecimento responsivo, ideal para treinos diÃ¡rios e provas de rua."></textarea>
+          </div>
+          <div class="field">
+            <label class="label">Categoria</label>
+            <select class="select">
+              <option value="corrida" selected>Corrida</option>
+              <option value="geral">Geral</option>
+              <option value="futebol">Futebol</option>
+              <option value="tenis">TÃªnis</option>
+              <option value="basquete">Basquete</option>
+            </select>
+          </div>
+        </form>
+        <div class="dialog-footer">
+          <a class="btn btn-outline" href="#">Cancelar</a>
+          <a class="btn" href="#">Salvar alteraÃ§Ãµes</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-overlay" id="editar-3">
+      <a class="dialog-backdrop" href="#" aria-label="Fechar"></a>
+      <div class="dialog">
+        <a class="dialog-close" href="#" aria-label="Fechar">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </a>
+        <div class="dialog-header">
+          <h3 class="dialog-title">Editar produto: <b>Bola de Basquete NBA Authentic</b></h3>
+          <p class="dialog-description">
+            Edite o produto e clique <b>salvar alteraÃ§Ãµes</b> quando finalizar.
+          </p>
+        </div>
+        <form class="form-grid">
+          <div class="field">
+            <label class="label">Nome do produto</label>
+            <input class="input" placeholder="Bola de Basquete NBA Authentic" />
+          </div>
+          <div class="field">
+            <label class="label">Marca</label>
+            <input class="input" placeholder="Wilson" />
+          </div>
+          <div class="field">
+            <label class="label">PreÃ§o</label>
+            <div class="input-group">
+              <span class="input-group-addon">R$</span>
+              <input class="input" type="number" placeholder="249.9" />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Estoque disponÃ­vel</label>
+            <input class="input" type="number" placeholder="8" />
+          </div>
+          <div class="field">
+            <label class="label">DescriÃ§Ã£o</label>
+            <textarea class="textarea" placeholder="Bola oficial com toque macio e excelente aderÃªncia para quadras indoor e outdoor."></textarea>
+          </div>
+          <div class="field">
+            <label class="label">Categoria</label>
+            <select class="select">
+              <option value="basquete" selected>Basquete</option>
+              <option value="geral">Geral</option>
+              <option value="futebol">Futebol</option>
+              <option value="tenis">TÃªnis</option>
+              <option value="corrida">Corrida</option>
+            </select>
+          </div>
+        </form>
+        <div class="dialog-footer">
+          <a class="btn btn-outline" href="#">Cancelar</a>
+          <a class="btn" href="#">Salvar alteraÃ§Ãµes</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-overlay" id="editar-4">
+      <a class="dialog-backdrop" href="#" aria-label="Fechar"></a>
+      <div class="dialog">
+        <a class="dialog-close" href="#" aria-label="Fechar">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </a>
+        <div class="dialog-header">
+          <h3 class="dialog-title">Editar produto: <b>Raquete Pure Drive</b></h3>
+          <p class="dialog-description">
+            Edite o produto e clique <b>salvar alteraÃ§Ãµes</b> quando finalizar.
+          </p>
+        </div>
+        <form class="form-grid">
+          <div class="field">
+            <label class="label">Nome do produto</label>
+            <input class="input" placeholder="Raquete Pure Drive" />
+          </div>
+          <div class="field">
+            <label class="label">Marca</label>
+            <input class="input" placeholder="Babolat" />
+          </div>
+          <div class="field">
+            <label class="label">PreÃ§o</label>
+            <div class="input-group">
+              <span class="input-group-addon">R$</span>
+              <input class="input" type="number" placeholder="1299.9" />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Estoque disponÃ­vel</label>
+            <input class="input" type="number" placeholder="5" />
+          </div>
+          <div class="field">
+            <label class="label">DescriÃ§Ã£o</label>
+            <textarea class="textarea" placeholder="Raquete potente e versÃ¡til, escolha de jogadores intermediÃ¡rios e avanÃ§ados."></textarea>
+          </div>
+          <div class="field">
+            <label class="label">Categoria</label>
+            <select class="select">
+              <option value="tenis" selected>TÃªnis</option>
+              <option value="geral">Geral</option>
+              <option value="futebol">Futebol</option>
+              <option value="corrida">Corrida</option>
+              <option value="basquete">Basquete</option>
+            </select>
+          </div>
+        </form>
+        <div class="dialog-footer">
+          <a class="btn btn-outline" href="#">Cancelar</a>
+          <a class="btn" href="#">Salvar alteraÃ§Ãµes</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-overlay" id="editar-5">
+      <a class="dialog-backdrop" href="#" aria-label="Fechar"></a>
+      <div class="dialog">
+        <a class="dialog-close" href="#" aria-label="Fechar">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </a>
+        <div class="dialog-header">
+          <h3 class="dialog-title">Editar produto: <b>Garrafa TÃ©rmica 1L</b></h3>
+          <p class="dialog-description">
+            Edite o produto e clique <b>salvar alteraÃ§Ãµes</b> quando finalizar.
+          </p>
+        </div>
+        <form class="form-grid">
+          <div class="field">
+            <label class="label">Nome do produto</label>
+            <input class="input" placeholder="Garrafa TÃ©rmica 1L" />
+          </div>
+          <div class="field">
+            <label class="label">Marca</label>
+            <input class="input" placeholder="Stanley" />
+          </div>
+          <div class="field">
+            <label class="label">PreÃ§o</label>
+            <div class="input-group">
+              <span class="input-group-addon">R$</span>
+              <input class="input" type="number" placeholder="189.9" />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Estoque disponÃ­vel</label>
+            <input class="input" type="number" placeholder="30" />
+          </div>
+          <div class="field">
+            <label class="label">DescriÃ§Ã£o</label>
+            <textarea class="textarea" placeholder="Garrafa tÃ©rmica em aÃ§o inox que mantÃ©m a temperatura por atÃ© 24 horas."></textarea>
+          </div>
+          <div class="field">
+            <label class="label">Categoria</label>
+            <select class="select">
+              <option value="geral" selected>Geral</option>
+              <option value="futebol">Futebol</option>
+              <option value="tenis">TÃªnis</option>
+              <option value="corrida">Corrida</option>
+              <option value="basquete">Basquete</option>
+            </select>
+          </div>
+        </form>
+        <div class="dialog-footer">
+          <a class="btn btn-outline" href="#">Cancelar</a>
+          <a class="btn" href="#">Salvar alteraÃ§Ãµes</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-overlay" id="editar-6">
+      <a class="dialog-backdrop" href="#" aria-label="Fechar"></a>
+      <div class="dialog">
+        <a class="dialog-close" href="#" aria-label="Fechar">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </a>
+        <div class="dialog-header">
+          <h3 class="dialog-title">Editar produto: <b>Camisa de Treino Dri-FIT</b></h3>
+          <p class="dialog-description">
+            Edite o produto e clique <b>salvar alteraÃ§Ãµes</b> quando finalizar.
+          </p>
+        </div>
+        <form class="form-grid">
+          <div class="field">
+            <label class="label">Nome do produto</label>
+            <input class="input" placeholder="Camisa de Treino Dri-FIT" />
+          </div>
+          <div class="field">
+            <label class="label">Marca</label>
+            <input class="input" placeholder="Nike" />
+          </div>
+          <div class="field">
+            <label class="label">PreÃ§o</label>
+            <div class="input-group">
+              <span class="input-group-addon">R$</span>
+              <input class="input" type="number" placeholder="119.9" />
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Estoque disponÃ­vel</label>
+            <input class="input" type="number" placeholder="17" />
+          </div>
+          <div class="field">
+            <label class="label">DescriÃ§Ã£o</label>
+            <textarea class="textarea" placeholder="Camisa leve com tecnologia que absorve o suor, perfeita para treinos intensos."></textarea>
+          </div>
+          <div class="field">
+            <label class="label">Categoria</label>
+            <select class="select">
+              <option value="futebol" selected>Futebol</option>
+              <option value="geral">Geral</option>
+              <option value="tenis">TÃªnis</option>
+              <option value="corrida">Corrida</option>
+              <option value="basquete">Basquete</option>
+            </select>
+          </div>
+        </form>
+        <div class="dialog-footer">
+          <a class="btn btn-outline" href="#">Cancelar</a>
+          <a class="btn" href="#">Salvar alteraÃ§Ãµes</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-overlay" id="deletar-1">
+      <a class="dialog-backdrop" href="#" aria-label="Fechar"></a>
+      <div class="dialog dialog-sm">
+        <div class="dialog-header">
+          <h2 class="dialog-title">Deseja Deletar <b>Bola de Futebol Society</b>?</h2>
+          <p class="dialog-description">
+            VocÃª tem certeza que deseja deletar este produto? Esta aÃ§Ã£o nÃ£o poderÃ¡ ser revertida.
+          </p>
+        </div>
+        <div class="dialog-footer">
+          <a class="btn btn-outline" href="#">Cancelar</a>
+          <a class="btn btn-destructive" href="#">Deletar</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-overlay" id="deletar-2">
+      <a class="dialog-backdrop" href="#" aria-label="Fechar"></a>
+      <div class="dialog dialog-sm">
+        <div class="dialog-header">
+          <h2 class="dialog-title">Deseja Deletar <b>TÃªnis de Corrida Pegasus 40</b>?</h2>
+          <p class="dialog-description">
+            VocÃª tem certeza que deseja deletar este produto? Esta aÃ§Ã£o nÃ£o poderÃ¡ ser revertida.
+          </p>
+        </div>
+        <div class="dialog-footer">
+          <a class="btn btn-outline" href="#">Cancelar</a>
+          <a class="btn btn-destructive" href="#">Deletar</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-overlay" id="deletar-3">
+      <a class="dialog-backdrop" href="#" aria-label="Fechar"></a>
+      <div class="dialog dialog-sm">
+        <div class="dialog-header">
+          <h2 class="dialog-title">Deseja Deletar <b>Bola de Basquete NBA Authentic</b>?</h2>
+          <p class="dialog-description">
+            VocÃª tem certeza que deseja deletar este produto? Esta aÃ§Ã£o nÃ£o poderÃ¡ ser revertida.
+          </p>
+        </div>
+        <div class="dialog-footer">
+          <a class="btn btn-outline" href="#">Cancelar</a>
+          <a class="btn btn-destructive" href="#">Deletar</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-overlay" id="deletar-4">
+      <a class="dialog-backdrop" href="#" aria-label="Fechar"></a>
+      <div class="dialog dialog-sm">
+        <div class="dialog-header">
+          <h2 class="dialog-title">Deseja Deletar <b>Raquete Pure Drive</b>?</h2>
+          <p class="dialog-description">
+            VocÃª tem certeza que deseja deletar este produto? Esta aÃ§Ã£o nÃ£o poderÃ¡ ser revertida.
+          </p>
+        </div>
+        <div class="dialog-footer">
+          <a class="btn btn-outline" href="#">Cancelar</a>
+          <a class="btn btn-destructive" href="#">Deletar</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-overlay" id="deletar-5">
+      <a class="dialog-backdrop" href="#" aria-label="Fechar"></a>
+      <div class="dialog dialog-sm">
+        <div class="dialog-header">
+          <h2 class="dialog-title">Deseja Deletar <b>Garrafa TÃ©rmica 1L</b>?</h2>
+          <p class="dialog-description">
+            VocÃª tem certeza que deseja deletar este produto? Esta aÃ§Ã£o nÃ£o poderÃ¡ ser revertida.
+          </p>
+        </div>
+        <div class="dialog-footer">
+          <a class="btn btn-outline" href="#">Cancelar</a>
+          <a class="btn btn-destructive" href="#">Deletar</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dialog-overlay" id="deletar-6">
+      <a class="dialog-backdrop" href="#" aria-label="Fechar"></a>
+      <div class="dialog dialog-sm">
+        <div class="dialog-header">
+          <h2 class="dialog-title">Deseja Deletar <b>Camisa de Treino Dri-FIT</b>?</h2>
+          <p class="dialog-description">
+            VocÃª tem certeza que deseja deletar este produto? Esta aÃ§Ã£o nÃ£o poderÃ¡ ser revertida.
+          </p>
+        </div>
+        <div class="dialog-footer">
+          <a class="btn btn-outline" href="#">Cancelar</a>
+          <a class="btn btn-destructive" href="#">Deletar</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
